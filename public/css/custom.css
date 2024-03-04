@@ -1,0 +1,8 @@
+/***
+    CSS Custom file
+ */
+
+.trace-agri-background {
+    background: url("../images/bg-login.png") 0% 0% no-repeat padding-box;
+    background-size: cover;
+}
