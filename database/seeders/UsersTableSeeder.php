@@ -22,19 +22,19 @@ class UsersTableSeeder extends Seeder
     private function createAdminUser()
     {
         $user = User::create([
-            'fullname' => 'Admin TRACEAGRI',
+            'fullname' => 'Admin GNOTIC',
             'phone' => '+225 00000000',
-            'username' => 'admin.traceagri',
-            'password' => bcrypt('traceagri!!!')
+            'username' => 'admin.genotic',
+            'password' => bcrypt('genoticweb!!!')
         ]);
 
-        $user->roles()->sync(Role::where('name', 'ADMINISTRATEUR TRACEAGRI')->first()->id);
+        $user->roles()->sync(Role::where('name', 'ADMINISTRATEUR GENOTIC')->first()->id);
 
         $user = User::create([
             'fullname' => 'Admin PLATEFORME',
             'phone' => '+225 01010101',
             'username' => 'admin.plateforme',
-            'password' => bcrypt('traceagri!!!')
+            'password' => bcrypt('genoticweb!!!')
         ]);
 
         $user->roles()->sync(Role::where('name', 'ADMINISTRATEUR PLATEFORME')->first()->id);

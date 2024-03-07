@@ -27,7 +27,7 @@
                     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full text-left text-sm font-light my-10">
-                                <thead class="bg-green-custom bt-table">
+                                <thead class="bg-green-cnra bt-table">
                                     <tr class="">
                                     <th scope="col" class="rounded-tl-lg px-6 py-4">#</th>
                                     <th scope="col" class="px-6 py-4">Nom de la Permission</th>

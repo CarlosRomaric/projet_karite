@@ -4,8 +4,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use Database\Seeders\Assign\AssignPermissionsToPlateformAdministratorSeeder;
-use Database\Seeders\Assign\AssignPermissionsToTraceAgriAdministratorSeeder;
-use Database\Seeders\Assign\AssignPermissionsToAgribusinessAdministratorSeeder;
+use Database\Seeders\Assign\AssignPermissionsToGenoticAdministratorSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
 
         $this->call(AssignPermissionsToPlateformAdministratorSeeder::class);
-        $this->call(AssignPermissionsToTraceAgriAdministratorSeeder::class);
-        $this->call(AssignPermissionsToAgribusinessAdministratorSeeder::class);
+        $this->call(AssignPermissionsToGenoticAdministratorSeeder::class);
+       
     }
 }

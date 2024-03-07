@@ -1,6 +1,7 @@
 .menu{
     @apply shadow md:flex md:items-center md:justify-between items-center w-full;
-    background: #0e5907;
+    // background: #0e5907;
+    background: #009118;
 
     & .menu-content{
         @apply  flex flex-col md:flex-row items-start justify-start md:items-center md:justify-between w-full px-4  md:px-16;
@@ -37,6 +38,11 @@
 .btn-green-table{
     @apply text-white rounded-lg py-2 px-4 mx-3;
     background: #568a51;
+}
+
+.btn-green-cnra{
+    @apply text-white rounded-lg py-2 px-4 mx-3;
+    background: #009118;
 }
 
 .img-h{
@@ -79,6 +85,14 @@
 }
 .bg-green-custom{
     background: #0e5907 !important;
+}
+
+.bg-yellow-custom{
+    background: #fef11c !important;
+}
+
+.bg-orange-custom{
+    background: #f29b10 !important;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Gill+Sans:wght@700&display=swap');
@@ -136,4 +150,15 @@ body {
     /* Le contenu de votre page va ici */
      min-height: 71vh;
     
+}
+.text-green-cnra{
+    color:#009118;
+}
+
+.bg-green-cnra{
+    background-color:#009118;
+}
+
+.border-green-cnra{
+    border-color:#009118;
 }

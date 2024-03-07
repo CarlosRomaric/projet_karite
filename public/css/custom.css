@@ -1,4 +1,4 @@
-/***
+/*
     CSS Custom file
  */
 
@@ -6,3 +6,8 @@
     background: url("../images/bg-login.png") 0% 0% no-repeat padding-box;
     background-size: cover;
 }
+
+.cnra-genotic-background {
+    background: url("../images/bg-login-2.jpg") 0% 0% no-repeat padding-box;
+    background-size: cover;
+ }

@@ -5,7 +5,7 @@
                 <!-- Formulaire de recherche et bouton Vider -->
                 <div class="mb-2 sm:mb-0 sm:flex-grow w-full sm:w-60 sm:order-1">
                     <input type="search" class="bg-green-100 w-30 rounded-lg shadow px-4 py-2 mt-2" wire:model.live="search" placeholder="Saisir pour rechercher">
-                    <button class="btn-green-table  mt-2" wire:click="resetSearch">Vider</button>
+                    <button class="btn-green-cnra  mt-2" wire:click="resetSearch">Vider</button>
                 </div>
                 <!-- Boutons d'action -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center mt-2 sm:mt-0 sm:order-2">
@@ -13,7 +13,7 @@
                     <!-- Boutons d'import, export et créer un producteur -->
                     <div class="flex flex-col sm:flex-row mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto">
                     
-                        <button class="btn-green-table flex items-center w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2 " data-te-toggle="modal" data-te-target="#roleModal" data-te-ripple-init data-te-ripple-color="light" wire:click="create"> 
+                        <button class="btn-green-cnra flex items-center w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2 " data-te-toggle="modal" data-te-target="#roleModal" data-te-ripple-init data-te-ripple-color="light" wire:click="create"> 
 
                             <img src="{{ asset('assets/img/icons/add.svg') }}" alt="" class="w-5 pr-2">
                             <label for="" class="cursor-pointer">Ajouter un utilisateur</label>
@@ -27,7 +27,7 @@
                     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full text-left text-sm font-light my-10">
-                                <thead class="bg-green-custom bt-table">
+                                <thead class="bg-green-cnra bt-table">
                                     <tr class="">
                                     <th scope="col" class="rounded-tl-lg px-6 py-4">#</th>
                                     <th scope="col" class="px-6 py-4">Nom & prénoms</th>

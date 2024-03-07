@@ -27,7 +27,7 @@
         
             <nav class="py-5 grid  grid-cols-6 gap-6 justify-items-center bg-green-50">
                 <div class="col-start-1 col-end-3">
-                    <img src="{{ asset('assets/img/logo-trace-agri.png') }}" alt="Logo" class="h-10 mx-4 inline">
+                    <img src="{{ asset('assets/img/logo-cnra.png') }}" alt="Logo" class="h-10 mx-4 inline">
                 </div>
                 <div class="col-end-7 grid justify-items-stretch col-span-2">
                     <div class="col-start-1 pt-1 pr-2">
@@ -70,24 +70,7 @@
                         </a>
                     </li>
                     @endcanany
-                    @canany(['ADMIN COOPERATIVE LIST', 'ADMIN COOPERATIVE ADD', 'ADMIN COOPERATIVE UPDATE', 'ADMIN COOPERATIVE DELETE'])
-                    <li class="menu-hover my-6 {{ (request()->is('cooperatives', 'cooperatives*')) ? 'active' : '' }} md:my-0 hover:h-full ">
-                        <a href="{{ route('agribusinesses.index') }}" class="menu-item">
-                            <img class="img-h " src="{{ asset('assets/img/icons/Groupe 3205.svg') }} " alt="cooperativeIcons" >
-                            <span for="" class="cursor-pointer text-base">Coopérative</span>
-                            <hr class="{{ (request()->is('cooperatives', 'cooperatives*')) ? 'active-div' : 'active-div-none' }}">
-                        </a>
-                    </li>
-                    @endcanany
-                    @canany(['ADMIN PRODUCTEUR LIST', 'ADMIN PRODUCTEUR ADD', 'ADMIN PRODUCTEUR UPDATE', 'ADMIN PRODUCTEUR DELETE', 'ADMIN PRODUCTEUR SHOW'])
-                    <li class="menu-hover my-6 {{ (request()->is('producteurs', 'producteurs*')) ? 'active' : '' }} md:my-0 hover:h-full hover:active">
-                        <a href="{{ route('farmers.index') }}" class="menu-item">
-                            <img class="img-h " src="{{ asset('assets/img/icons/farmer.svg') }} " alt="producteurIcons" >
-                            <span for="" class="cursor-pointer text-base">Producteurs</span>
-                            <hr class="{{ (request()->is('producteurs', 'producteurs*')) ? 'active-div' : 'active-div-none' }}">
-                        </a>
-                    </li>
-                    @endif
+                  
                     @canany(['ADMIN PERMISSION LIST', 'ADMIN PERMISSION ADD', 'ADMIN PERMISSION UPDATE', 'ADMIN PERMISSION DELETE'])
                     <li class="menu-hover my-6 md:my-0 hover:h-full hover:active  {{ (request()->is('permissions', 'permissions*')) ? 'active' : '' }}">
                         <a href="{{  route('permissions.index') }}" class="menu-item">
@@ -130,7 +113,7 @@
 
              @yield('content')
 
-            <div class="footer bg-green-custom text-white border-t py-2">
+            <div class="footer bg-green-cnra text-white border-t py-2">
                 <div class="container mx-auto px-4">
                     <div class="md:flex justify-center items-center text-sm">
                         <div class="md:flex md:flex-row-reverse items-center py-4">
