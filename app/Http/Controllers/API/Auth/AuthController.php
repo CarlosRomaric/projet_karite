@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    /**
+     * La fonction PHP `login` gère l'authentification des utilisateurs en vérifiant le nom
+     * d'utilisateur et le mot de passe fournis, en générant un jeton d'accès en cas de connexion
+     * réussie et en renvoyant les réponses JSON appropriées.
+     *
+     * @return La fonction `login()` renvoie une réponse JSON basée sur les conditions vérifiées dans
+     * la fonction.
+     */
     public function login()
     {
         if (is_null(request('login_user'))) {
