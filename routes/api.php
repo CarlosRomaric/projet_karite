@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\FarmerController;
@@ -23,10 +24,15 @@ use App\Http\Controllers\API\SynchronizationController;
 // });
 
 
+Route::prefix('authenticate')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+});
+
+
 /**
  * API Namespace
  */
-Route::namespace('API')->name('api.')->group(function() {
+Route::namespace('API')->name('api.')->group(function () {
     /**
      * Auth routes
      */
@@ -44,7 +50,7 @@ Route::namespace('API')->name('api.')->group(function() {
      * Farmer routes
      */
     Route::prefix('farmers')->name('farmers.')->group(function () {
-        Route::get('/', [FarmerController::class,'index'])->name('index');
+        Route::get('/', [FarmerController::class, 'index'])->name('index');
     });
 
     /**
@@ -53,5 +59,4 @@ Route::namespace('API')->name('api.')->group(function() {
     Route::prefix('synchronizations')->name('synchronizations.')->group(function () {
         Route::post('/store', [SynchronizationController::class, 'store'])->name('store');
     });
-
 });

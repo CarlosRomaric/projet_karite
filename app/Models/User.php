@@ -3,14 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as BasicAuth;
+
+
+
+class User extends Model implements Authenticatable
 {
-    use HasApiTokens, Notifiable, UserRoleTrait;
+    use HasApiTokens, HasFactory, Notifiable, BasicAuth;
 
     /**
      * The attributes that are mass assignable.
@@ -26,12 +34,22 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->mot_passe;
+    }
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'mot_passe'
     ];
 
     /**
@@ -64,8 +82,7 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::creating(function($model)
-        {
+        static::creating(function ($model) {
             if (is_null($model->id)) {
                 $model->id = Str::uuid();
             }
@@ -85,9 +102,9 @@ class User extends Authenticatable
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where('fullname', 'like', '%'.$search.'%');
-            $query->orWhere('phone', 'like', '%'.$search.'%');
-            $query->orWhere('username', 'like', '%'.$search.'%');
+            $query->where('fullname', 'like', '%' . $search . '%');
+            $query->orWhere('phone', 'like', '%' . $search . '%');
+            $query->orWhere('username', 'like', '%' . $search . '%');
             $query->orWhereHas('agribusiness', function ($query) use ($search) {
                 $query->where('name', 'like', "%{$search}%");
                 $query->orWhere('acronym', 'like', "%{$search}%");
