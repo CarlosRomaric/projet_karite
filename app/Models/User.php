@@ -34,22 +34,12 @@ class User extends Model implements Authenticatable
     ];
 
     /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-        return $this->mot_passe;
-    }
-
-    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'mot_passe'
+        'password', 'remember_token'
     ];
 
     /**

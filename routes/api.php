@@ -28,6 +28,13 @@ Route::prefix('authenticate')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
 });
 
+Route::prefix('user')->group(function () {
+
+    Route::middleware('auth:api')->group(function () {
+        Route::post('update-password', [AuthController::class, 'updatePassword']);
+    });
+});
+
 
 /**
  * API Namespace
