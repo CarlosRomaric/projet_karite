@@ -23,8 +23,9 @@ class DashboardController extends Controller
 
         $users = User::retrievingByUsersType()->get();
         $farmers = Farmer::with('plots')->retrievingByUsersType()->get();
-        $agribusinesses = Agribusiness::orderBy('name')->paginate(10);
+        $agribusinesses = Agribusiness::orderBy('denomination')->paginate(10);
 
         return view('dashboard.index', compact('farmers', 'agribusinesses', 'users'));
     }
+    
 }

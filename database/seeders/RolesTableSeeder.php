@@ -13,10 +13,7 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $roles = [
-            'ADMINISTRATEUR GENOTIC',
-            'SUPERVISEUR',
-            'CHERCHEUR',
-            'AGENT COLLECTE',
+            'ADMINISTRATEUR COOPERATIVE',
             'ADMINISTRATEUR PLATEFORME',
             'MOBILE'
         ];

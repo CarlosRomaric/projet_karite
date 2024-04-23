@@ -1,10 +1,14 @@
 <?php
 
+use App\Models\Region;
+use App\Models\Departement;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
@@ -15,7 +19,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AgribusinessController;
 use App\Http\Controllers\ExportToExcelController;
 use App\Http\Controllers\ImportViaExcelController;
-use App\Http\Controllers\Admin\ResetPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +35,11 @@ use App\Http\Controllers\Admin\ResetPasswordController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
 Route::group(['middleware' => 'guest'], function() {
-    Route::get('/', [AuthController::class, 'showLoginForm'])->name('auth.showLoginForm');
+    Route::get('/', [PagesController::class,'index'])->name('pages.acceuil');
+    Route::get('/inscription', [PagesController::class,'createCoop'])->name('pages.createCoop');
+    Route::get('/connexion', [AuthController::class, 'showLoginForm'])->name('auth.showLoginForm');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::get('/login-refonte', function () {
         return view('auth.login-refonte');

@@ -25,7 +25,7 @@
                     <div class="mt-24">
                         <canvas id="qr-code"></canvas>
                     </div>
-                    <a class="btn-green mt-4" href="http://bit.ly/TelechargezTraceAgriApk">
+                    <a class="btn-amber-karite mt-4" href="http://bit.ly/TelechargezTraceAgriApk">
                         Télécharger l'appli. mobile
                     </a>
                 </div>

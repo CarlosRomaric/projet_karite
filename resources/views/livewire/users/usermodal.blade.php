@@ -100,7 +100,7 @@
                              focus:border-gray-500" id="agribusiness_id" wire:model="agribusiness_id" name="agribusiness_id">
                                 <option value="">Sélectionner la coopérative</option>
                                 @foreach($agribusinesses as $agribusiness)
-                                <option value="{{ $agribusiness->id }}" @if(old('agribusiness_id') === $agribusiness->id) selected @endif>{{ $agribusiness->name }}</option>
+                                <option value="{{ $agribusiness->id }}" @if(old('agribusiness_id') === $agribusiness->id) selected @endif>{{ $agribusiness->denomination }}</option>
                                 @endforeach
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -142,8 +142,8 @@
                     
                     <div class="flex justify-end mt-5">
 
-                        <button type="submit" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2">Enregistrer</button>
-                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-green-900 font-bold py-2 px-4 rounded" wire:click="closeModal">Annuler</button>
+                        <button type="submit" class="bg-amber-800 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded mr-2">Enregistrer</button>
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-amber-800 font-bold py-2 px-4 rounded" wire:click="closeModal">Annuler</button>
                     </div>
                 </form>
 
@@ -163,8 +163,8 @@
                 <h2 class="text-2xl font-bold mb-4">Voulez vous supprimer cet utilisateur ?</h2>
                 <div class="flex justify-end mt-5">
 
-                        <button type="button" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$userId}}")'>Valider</button>
-                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-green-900 font-bold py-2 px-4 rounded" wire:click="closeModalDelete">Annuler</button>
+                        <button type="button" class="bg-amber-800 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$userId}}")'>Valider</button>
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-amber-800 font-bold py-2 px-4 rounded" wire:click="closeModalDelete">Annuler</button>
                 </div>
             </div>
         </div>

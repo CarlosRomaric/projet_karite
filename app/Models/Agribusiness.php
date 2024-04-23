@@ -26,4 +26,18 @@ class Agribusiness extends Model
         }
     }
 
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class);
+    }
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
+
 }

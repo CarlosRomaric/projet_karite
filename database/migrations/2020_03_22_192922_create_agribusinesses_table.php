@@ -15,11 +15,22 @@ class CreateAgribusinessesTable extends Migration
     {
         Schema::create('agribusinesses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name', 100);
-            $table->string('acronym', 10)->nullable();
-            $table->string('address');
-            $table->string('person_responsible_name', 50)->nullable();
-            $table->string('person_responsible_phone', 20)->nullable();
+            $table->string('matricule', 100);
+            $table->string('denomination')->nullable();
+            $table->string('sigle')->nullable();
+            $table->string('address')->nullable();
+            $table->uuid('region_id');
+            $table->uuid('departement_id');
+            $table->string('village')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('certification')->nullable();
+            $table->string('registre_commerce')->nullable();
+            $table->string('dfe')->nullable();
+            $table->string('number_sections')->nullable();
+            $table->string('number_unite_transformations')->nullable();
+            $table->string('file_producers')->nullable();
+            $table->string('status')->nullable();
+            $table->string('motif')->nullable();
             $table->timestamps();
         });
     }

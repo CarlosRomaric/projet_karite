@@ -4,9 +4,12 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Permission;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Exceptions\InvalidTokenException;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        
         $this->registerPolicies();
 
         if (Schema::hasTable('permissions')) {

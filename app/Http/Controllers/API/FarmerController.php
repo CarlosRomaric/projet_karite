@@ -39,6 +39,8 @@ class FarmerController extends Controller
         ]);
     }
 
+
+
     private function getFarmersByAgribusiness($request)
     {
         $skip = $request->get('per_page', 10) * ($request->get('page', 1) - 1);
@@ -47,6 +49,7 @@ class FarmerController extends Controller
             ->orderBy('fullname')
             ->take($request->get('per_page', 10))
             ->skip($skip)
+            ->with('plots')
             ->get()
             ->transform(function ($farmer) {
                 return [

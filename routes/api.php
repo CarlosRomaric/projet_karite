@@ -48,9 +48,31 @@ Route::namespace('API')->name('api.')->group(function () {
         Route::post('login', [LoginController::class])
             ->name('login');
 
+        Route::post('login', [LoginController::class])
+            ->name('login');
+
+        Route::post('connexion', [AuthController::class, 'login'])
+              ->name('connexion');
+
+        Route::get('index', [AuthController::class, 'index'])
+              ->name('index')
+              ->middleware('auth:api');
+
         // Logout
-        Route::post('logout', [LogoutController::class])
-            ->name('logout');
+        Route::post('logout', [AuthController::class, 'logout'])
+            ->name('logout')
+            ->middleware('auth:api');
+        
+        Route::post('sendCodeUser',[AuthController::class, 'sendCodeUser'])
+            ->name('sendCodeUser');
+
+        Route::post('checkCodeUser',[AuthController::class, 'checkCodeUser'])
+            ->name('checkCodeUser');
+
+        Route::post('resetPassword',[AuthController::class, 'resetPassword'])
+            ->name('resetPassword');
+
+
     });
 
     /**

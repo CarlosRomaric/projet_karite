@@ -55,3 +55,69 @@
         max-width: 60%;
         height: auto;
 }
+
+.form-control {
+    @apply appearance-none w-full border rounded py-2 px-3 text-gray-700 leading-tight;
+}
+
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff !important;
+    border: 1px solid #aaa !important;
+    border-radius: 0px !important;
+    padding-top: 10px !important;
+    padding-left: 4px !important;
+    padding-bottom: 30px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444 !important;
+    line-height: 15px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none !important;
+}
+
+.selectize-input, .selectize-input input {
+    color: #303030 !important;
+    font-family: inherit !important;
+    font-size: 10px !important;
+    /* line-height: 44px; */
+    font-smoothing: inherit !important;
+    border: 1px solid #aaa !important;
+    border-radius: 4px !important;
+   
+}
+
+.selectize-input.dropdown-active {
+    border-radius: 0px !important;
+}
+
+.selectize-control.multi .selectize-input [data-value] {
+    text-shadow: 0 1px 0 rgba(0,51,83,.3) !important;
+    border-radius: 0px !important;
+    @apply bg-amber-900 border-amber-900;
+    border: 1px solid #778801 !important;
+    background-image: linear-gradient(to bottom,rgb(69 26 3),rgb(69 26 3)) !important;
+    background-repeat: repeat-x !important;
+    box-shadow: 0 1px 0 rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.03) !important
+}
+
+.selectize-control.multi .selectize-input [data-value].active {
+    background-color: rgb(69 26 3) !important;
+    border: 1px solid rgb(69 26 3) !important;
+    background-image: linear-gradient(to bottom,rgb(69 26 3), rgb(69 26 3)) !important;
+    background-repeat: repeat-x !important;
+}
+
+.selectize-control.multi .selectize-input>div.active {
+    background: rgb(69 26 3) !important;
+    color: #fff !important;
+    border: 1px solid rgb(69 26 3) !important;
+}
+
+
+.bank-selectized{
+
+}

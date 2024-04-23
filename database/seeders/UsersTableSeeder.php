@@ -22,21 +22,30 @@ class UsersTableSeeder extends Seeder
     private function createAdminUser()
     {
         $user = User::create([
-            'fullname' => 'Admin GNOTIC',
+            'fullname' => 'Admin KARITE',
             'phone' => '+225 00000000',
-            'username' => 'admin.genotic',
-            'password' => bcrypt('genoticweb!!!')
+            'username' => 'admin.karite',
+            'password' => bcrypt('kariteweb!!!')
         ]);
 
-        $user->roles()->sync(Role::where('name', 'ADMINISTRATEUR GENOTIC')->first()->id);
+        $user->roles()->sync(Role::where('name', 'ADMINISTRATEUR COOPERATIVE')->first()->id);
 
         $user = User::create([
             'fullname' => 'Admin PLATEFORME',
             'phone' => '+225 01010101',
             'username' => 'admin.plateforme',
-            'password' => bcrypt('genoticweb!!!')
+            'password' => bcrypt('kariteweb!!!')
         ]);
 
         $user->roles()->sync(Role::where('name', 'ADMINISTRATEUR PLATEFORME')->first()->id);
+
+        $user = User::create([
+            'fullname' => 'Agent COLLECT',
+            'phone' => '0778546246',
+            'username' => 'agent.collect',
+            'password' => bcrypt('kariteweb!!!')
+        ]);
+
+        $user->roles()->sync(Role::where('name', 'MOBILE')->first()->id);
     }
 }

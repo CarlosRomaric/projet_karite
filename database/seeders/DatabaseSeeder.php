@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AssignPermissionsToPlateformAdministratorSeeder::class);
         $this->call(AssignPermissionsToGenoticAdministratorSeeder::class);
+        $this->call(RegionDepartementTableSeeder::class);
        
     }
 }

@@ -2,57 +2,97 @@
 
 namespace App\Livewire\Agribusinesses;
 
-use App\Http\Requests\Agribusinesses\AgribusinessCreateRequest;
+use App\Models\User;
 use Livewire\Component;
+use App\Models\Departement;
 use Livewire\Attributes\On;
 use App\Models\Agribusiness;
-use Livewire\WithPagination;
 use Livewire\Attributes\Url;
-
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+use App\Http\Requests\Agribusinesses\AgribusinessCreateRequest;
+use App\Models\Region;
 
 class AgribusinessesComponent extends Component
 {
     use WithPagination;
-    public $agribusinessId;
+    use WithFileUploads;
 
-    public $name; 
-    public $acronym; 
-    public $address; 
-    public $person_responsible_name; 
-    public $person_responsible_phone;
+    public $step = 1;
+    public $agribusinessId;
+    public $matricule, $denomination, $sigle, $address, $region_id, $departement_id, $village, $bank, $certification, $registre_commerce, $dfe, $number_sections, $number_unite_transformations, $file_producers, $status; 
+    public $pca, $sup, $photo_pca, $photo_sup;
+    public $statusFilter;
+    public $agribusinessFilter;
+    public $regions, $departements;
+    public $doc_dfe, $doc_registre_commerce;
+   
+    public $motif;
+    public $close = 0;
+    
     #[Url] 
     public $search = '';
     public $selectedLimitPaginate;
     
     public $isOpen = 0;
+    public $isOpenShow = 0;
     public $isOpenDelete = 0;
+    public $isOpenTest = 0;
     
+
 
 
     public function rules():array
     {
-        $rules= [
-            'name' => 'required',
-            'acronym' => 'required',
-            'address' => 'required',
-            'person_responsible_name' => 'required_with:person_responsible_phone',
-            'person_responsible_phone' => 'required_with:person_responsible_name',
+        $rules = [
+
+            'matricule'=>'required',
+            'denomination'=>'required',
+            'sigle'=>'required',
+            'region_id'=>'required',
+            'departement_id'=>'required',
+            'village'=>'required',
+            'address'=>'required',
+            'certification'=>'required',
+            'dfe'=>'required|mimes:pdf,png,jpeg,jpg|max:2048',
+            'bank'=>'required',
+            'registre_commerce'=>'required|mimes:pdf,png,jpeg,jpg|max:2048',
+            'number_sections'=>'required|numeric',
+            'number_unite_transformations'=>'required|numeric',
         ];
+
+        if ($this->file_producers) {
+            $rules['file_producers'] = 'mimes:csv,xlsx,xls|max:2048';
+        }
         
         return   $rules;
     }
 
     public function messages():array
     {
-        $messages= [
-            'name.required' => 'Le nom  de la coopérative est obligatoire',
-            'acronym.required' => 'votre Sigle est obligatoire',
-            'address.required' => 'la localisation est obligatoire ',
-            'person_responsible_phone.required_with' => 'Le champ de téléphone de la personne responsable est obligatoire lorsque le nom de la personne responsable est présent.',
-            'person_responsible_name.required_with' => 'Le champ Nom de la personne responsable est obligatoire lorsque le numéro de téléphone de la personne responsable est présent.',
+        $messages = [
+            'required'=>'ce champ est obligatoire',
+            'image'=>'ce champ doit être une image',
+            'file_producers.mimes'=>'le fichier que vous devez uploader doit être de l\'un de ces types csv,xlsx,xlsl,xls'
         ];
         
         return $messages;
+    }
+
+    public function updatedRegionId($region_id){
+        
+        
+        if(!is_null($region_id)){
+            $this->departements = Departement::where('region_id','=',$region_id)->get();
+        }
+        
+    }
+
+
+    public function updatedStatusFilter($status){
+        
+       $this->agribusinessFilter =($this->query()->where('status',$status));
+        
     }
 
     
@@ -64,9 +104,19 @@ class AgribusinessesComponent extends Component
     }
 
     public function create(){
-        $this->reset('name','acronym','address','person_responsible_name','person_responsible_phone','agribusinessId');
+        $this->resetInput();
         $this->openModal();
        
+    }
+
+    public function nextStep()
+    {
+        $this->step++;
+    }
+
+    public function prevStep()
+    {
+        $this->step--;
     }
 
     public function openModal(){
@@ -77,6 +127,12 @@ class AgribusinessesComponent extends Component
         $this->isOpenDelete = true;
     }
 
+    public function openModalTest(){
+        $this->isOpenDelete = true;
+    }
+
+
+
     public function closeModal(){
         $this->isOpen = false;
     }
@@ -85,26 +141,62 @@ class AgribusinessesComponent extends Component
         $this->isOpenDelete = false;
     }
 
+    public function closeModalTest(){
+        $this->isOpenDelete = false;
+    }
+
+    public function openModalShow(){
+        $this->isOpenShow = true;
+    }
+
+    public function closeModalShow(){
+        $this->isOpenShow = false;
+    }
+
     #[On('get-limit-paginate')] 
     public function getLmitPaginate($value){
 
         $this->selectedLimitPaginate = $value;
         //dd($this->selectedLimitPaginate);
     }
+    public function fullnameResponsable($agribusinessId){
+        $user = User::where('agribusiness_id',$agribusinessId)->where('job','PCA')->first();
+        return $user;
+    }
     public function saveAgribusiness(){
        
         $this->validate();
-        //dd($validated);
-        //dd($this->name, $this->acronym, $this->address, $this->person_responsible_name, $this->person_responsible_phone);
-
+       
         $agribusiness = New Agribusiness();
-        $agribusiness->name = $this->name;
-        $agribusiness->acronym = str_replace(' ', '', $this->acronym);
+        $agribusiness->denomination = $this->name;
+        $agribusiness->sigle = str_replace(' ', '', $this->sigle);
         $agribusiness->address = $this->address;
-        $agribusiness->person_responsible_name = $this->person_responsible_name;
-        $agribusiness->person_responsible_phone = $this->person_responsible_phone;
-        //dd($agribusiness);
+      
+        $agribusiness->region_id = $this->region_id;
+        $agribusiness->departement_id = $this->departement_id;
+        $agribusiness->village = $this->village;
+        $agribusiness->bank = $this->bank;
+
+        $filenameRg = $this->registre_commerce->getClientOriginalName();
+        $pathRg = 'public/registre_commerciale/'.trim($this->sigle);
+        $agribusiness->registre_commerce = $this->registre_commerce->storeAs($pathRg, $filenameRg);
+
+        $filenameDfe = $this->dfe->getClientOriginalName();
+        $pathDfe = 'public/dfe/'.trim($this->sigle);
+        $agribusiness->dfe = $this->dfe->storeAs($pathDfe, $filenameDfe);
+        $agribusiness->number_sections = $this->number_sections;
+        $agribusiness->number_unite_transformations = $this->number_unite_transformations;
+
+        if($this->file_producers){
+            $pathFileProducers = $this->file_producers->getClientOriginalName();
+            $filenameFileProducers = 'public/file_producers/'.trim($this->sigle);
+            $agribusiness->file_producers = $this->file_producers->storeAs($pathFileProducers, $filenameFileProducers);
+        }
+      
+        $agribusiness->status = 0;
         $agribusiness->save();
+
+       
 
         session()->flash('message','Votre enregistement a été effectué avec success');
         $this->resetInput();
@@ -114,34 +206,170 @@ class AgribusinessesComponent extends Component
         //$this->dispatch('close-modal');
     }
 
+    public function valideCoop($id){
+        if($this->motif != '' ){
+
+       
+            $agribusiness = Agribusiness::find($id);
+            $agribusiness->status = 1;
+            $agribusiness->motif = $this->motif;
+            $agribusiness->save();
+            if(!empty(session('errorMotif'))){
+                session()->forget('errorMotif');
+            }
+            $this->closeModalShow();
+        }else{
+            session()->put('errorMotif','Vous devez renseigner le motif pour valider');
+        }
+    }
+
+    public function rejetCoop($id){
+        
+        if($this->motif != '' ){
+
+       
+            $agribusiness = Agribusiness::find($id);
+            $agribusiness->status = 2;
+            $agribusiness->motif = $this->motif;
+            $agribusiness->save();
+            if(!empty(session('errorMotif'))){
+                session()->forget('errorMotif');
+            }
+            $this->closeModalShow();
+
+        }else{
+            session()->put('errorMotif','Vous devez renseigner le motif pour rejeter');
+        }
+    }
+
+
+
+
+
     public function edit($id)
     {
-        
+       
         $this->openModal();
         $agribusiness = Agribusiness::findOrFail($id);
         //dd($agribusiness);
         $this->agribusinessId = $id;
-        $this->name = $agribusiness->name;
-        $this->acronym = $agribusiness->acronym;
+        $this->matricule = $agribusiness->matricule;
+        $this->denomination = $agribusiness->denomination;
+        $this->sigle = $agribusiness->sigle;
         $this->address = $agribusiness->address;
-        $this->person_responsible_name = $agribusiness->person_responsible_name;
-        $this->person_responsible_phone = $agribusiness->person_responsible_phone;
+        $this->region_id = $agribusiness->region->name;
+        $this->village = $agribusiness->village;
+        $this->certification = $agribusiness->certification;
+        $this->bank = $agribusiness->bank;
+        
+        $this->number_sections = $agribusiness->number_sections;
+        $this->number_unite_transformations = $agribusiness->number_unite_transformations;
+        $this->regions = Region::all();
+        $this->departements = Departement::all();
+        $this->region_id = $agribusiness->region_id;
+        $this->departement_id = $agribusiness->departement_id;
+        $this->doc_dfe =str_replace('public/', '' ,$agribusiness->dfe);
+        $this->doc_registre_commerce =str_replace('public/', '' ,$agribusiness->registre_commerce);
        
     }
 
+    public function show($id)
+    {
+        
+        $this->openModalShow();
+        $agribusiness = Agribusiness::findOrFail($id);
+        //dd($agribusiness);
+        $this->agribusinessId = $id;
+        $this->matricule = $agribusiness->matricule;
+        $this->denomination = $agribusiness->denomination;
+        $this->sigle = $agribusiness->sigle;
+        $this->address = $agribusiness->address;
+        $this->region_id = $agribusiness->region->name;
+        $this->departement_id = $agribusiness->departement->name;
+        $this->village = $agribusiness->village;
+        $this->certification = $agribusiness->certification;
+        $this->bank = $agribusiness->bank;
+      
+        $this->number_sections = $agribusiness->number_sections;
+        $this->number_unite_transformations = $agribusiness->number_unite_transformations;
+        $this->registre_commerce = str_replace('public/', '' ,$agribusiness->registre_commerce);
+        $this->dfe = str_replace('public/', '' ,$agribusiness->dfe);
+        $this->pca = User::where('agribusiness_id',$this->agribusinessId)->where('job','PCA')->first();
+        $this->sup = User::where('agribusiness_id',$this->agribusinessId)->where('job','SUPERVISEUR')->first();
+        $this->photo_pca =  str_replace('public/', '', $this->pca->picture);
+        $this->photo_sup =  str_replace('public/', '', $this->sup->picture);
+        $this->motif = $agribusiness->motif;
+       
+    }   
+
     public function update()
     {
+        $rulesUpdate = [
+            'matricule'=>'required',
+            'denomination'=>'required',
+            'sigle'=>'required',
+            'region_id'=>'required',
+            'departement_id'=>'required',
+            'village'=>'required',
+            'address'=>'required',
+            'certification'=>'required',
+            
+            'bank'=>'required',
+            
+            'number_sections'=>'required|numeric',
+            'number_unite_transformations'=>'required|numeric',
+        ];
+       
+        if(!empty($this->dfe))
+        {
+            $rulesUpdate['dfe']='required|mimes:pdf,png,jpeg,jpg|max:2048';
+        }
+
+        if(!empty($this->registre_commerce))
+        {
+            $rulesUpdate['registre_commerce']='required|mimes:pdf,png,jpeg,jpg|max:2048';
+        }
+        
+        $this->validate($rulesUpdate);
+
         if ($this->agribusinessId) {
-            $post = Agribusiness::findOrFail($this->agribusinessId);
-            $post->update([
-                'name' => $this->name,
-                'acronym' => $this->acronym,
-                'person_responsible_name' => $this->person_responsible_name,
-                'person_responsible_phone' => $this->person_responsible_phone,
-            ]);
+        $agribusiness = Agribusiness::findOrFail($this->agribusinessId);
+        $agribusiness->denomination = $this->denomination;
+        $agribusiness->sigle = str_replace(' ', '', $this->sigle);
+        $agribusiness->address = $this->address;
+      
+        $agribusiness->region_id = $this->region_id;
+        $agribusiness->departement_id = $this->departement_id;
+        $agribusiness->village = $this->village;
+        $agribusiness->bank = $this->bank;
+
+        if(!empty($this->registre_commerce)){
+            $filenameRg = $this->registre_commerce->getClientOriginalName();
+            $pathRg = 'public/registre_commerciale/'.trim($this->sigle);
+            $agribusiness->registre_commerce = $this->registre_commerce->storeAs($pathRg, $filenameRg);
+        }
+      
+
+        if(!empty($this->dfe)){
+            $filenameDfe = $this->dfe->getClientOriginalName();
+            $pathDfe = 'public/dfe/'.trim($this->sigle);
+            $agribusiness->dfe = $this->dfe->storeAs($pathDfe, $filenameDfe);
+        }
+
+        $agribusiness->number_sections = $this->number_sections;
+        $agribusiness->number_unite_transformations = $this->number_unite_transformations;
+
+        if($this->file_producers){
+            $pathFileProducers = $this->file_producers->getClientOriginalName();
+            $filenameFileProducers = 'public/file_producers/'.trim($this->sigle);
+            $agribusiness->file_producers = $this->file_producers->storeAs($pathFileProducers, $filenameFileProducers);
+        }
+      
+       
+        $agribusiness->save();
             session()->flash('message', 'la coopérative a été modifié avec success');
             $this->closeModal();
-            $this->reset('name','acronym','address','person_responsible_name','person_responsible_phone','agribusinessId');
+            
         }
     }
     
@@ -162,13 +390,7 @@ class AgribusinessesComponent extends Component
         return $this->query();
     }
 
-    public function resetInput(){
-        $this->name = '';
-        $this->acronym = '';
-        $this->address = '';
-        $this->person_responsible_name = '';
-        $this->person_responsible_phone = '';
-    }
+  
 
     public function resetSearch(){
         $this->search='';
@@ -179,15 +401,20 @@ class AgribusinessesComponent extends Component
     }
 
     public function query(){
-        //$this->search = 'Brenden Oliver';
-        $query = Agribusiness::where('name','like','%'.$this->search.'%')
-                ->orWhere('acronym','like','%'.$this->search.'%')
-                ->orWhere('address','like','%'.$this->search.'%')
-                ->orWhere('person_responsible_name','like','%'.$this->search.'%')
-                ->orWhere('person_responsible_phone','like','%'.$this->search.'%')
-                ->orderby('created_at','DESC')
-                ->paginate($this->selectedLimitPaginate);
-        //$query = Agribusiness::search($this->search)->get();
+        $search = $this->search;
+        $query = Agribusiness::with('region','departement')
+                    ->where('denomination', 'like', '%' . $this->search . '%')
+                    ->orWhere('sigle', 'like', '%' . $this->search . '%')
+                    ->orWhere('address', 'like', '%' . $this->search . '%')
+                    ->orwhereHas('region',function($q) use ($search){
+                        $q->where('name','like','%'.$search.'%');
+                    })
+                    ->orwhereHas('departement',function($q) use ($search){
+                        $q->where('name','like','%'.$search.'%');
+                    })
+                    ->orderBy('created_at','DESC')
+                    ->paginate($this->selectedLimitPaginate);
+        
         return $query;
     }
 
@@ -195,12 +422,34 @@ class AgribusinessesComponent extends Component
     {
         return 'custom-pagination-links-view';
     }
+
+    public function resetInput(){
+        $this->matricule = '';
+        $this->denomination = '';
+        $this->sigle = '';
+        $this->address='';
+        $this->region_id='';
+        $this->certification='';
+        $this->dfe='';
+        $this->bank='';
+        $this->registre_commerce='';
+        $this->number_sections='';
+        $this->number_unite_transformations="";
+        $this->file_producers="";
+        $this->departement_id='';
+
+    }
     
     public function render()
     {
-        //dump($this->query());
+        if(!empty($this->statusFilter)){
+            $agribusiness = $this->agribusinessFilter;
+        }else{
+            $agribusiness = $this->query();
+        }
+      
         return view('livewire.agribusinesses.agribusinesses-component',[
-            'agribusinesses' => $this->query(),
+            'agribusinesses' => $agribusiness,
         ]);
     }
 }

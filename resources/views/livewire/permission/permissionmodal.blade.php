@@ -50,8 +50,8 @@
                     
                     <div class="flex justify-end mt-5">
 
-                        <button type="submit" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2">Enregistrer</button>
-                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-green-900 font-bold py-2 px-4 rounded" wire:click="closeModal">Annuler</button>
+                        <button type="submit" class="bg-amber-800 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded mr-2">Enregistrer</button>
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-amber-900 font-bold py-2 px-4 rounded" wire:click="closeModal">Annuler</button>
                     </div>
                 </form>
 
@@ -71,8 +71,8 @@
                 <h2 class="text-2xl font-bold mb-4">Voulez vous supprimer cette permission ?</h2>
                 <div class="flex justify-end mt-5">
 
-                        <button type="button" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$permissionId}}")'>Valider</button>
-                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-green-900 font-bold py-2 px-4 rounded" wire:click="closeModalDelete">Annuler</button>
+                        <button type="button" class="bg-amber-800 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$permissionId}}")'>Valider</button>
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-amber-900 font-bold py-2 px-4 rounded" wire:click="closeModalDelete">Annuler</button>
                 </div>
             </div>
         </div>

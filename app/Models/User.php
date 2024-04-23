@@ -18,7 +18,7 @@ use Illuminate\Auth\Authenticatable as BasicAuth;
 
 class User extends Model implements Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, BasicAuth;
+    use HasApiTokens, HasFactory, Notifiable, BasicAuth, UserRoleTrait;
 
     /**
      * The attributes that are mass assignable.

@@ -7,8 +7,8 @@
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-green-600 dark:text-gray-400 dark:hover:text-white">
-                            <svg class="w-3 h-3 text-green-900 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-amber-600 dark:text-gray-400 dark:hover:text-white">
+                            <svg class="w-3 h-3 text-amber-900 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                             </svg>
                             Tableau de Bord
@@ -25,7 +25,7 @@
                 <div class="flex flex-col md:flex-row">
                     <!-- Partie gauche -->
                     <div class="w-full md:w-2/3 px-4 md:px-0">
-                        <div class="bg-green-100 pl-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 rounded-lg my-5 shadow-lg">
+                        <div class="bg-amber-100 pl-4  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 rounded-lg my-5 shadow-lg">
                             <!-- Cartes de statistiques -->
                             <div class="card-green">
                                 <p class="font-semibold">Nombre de Producteurs</p>
@@ -38,13 +38,13 @@
                             </div>
                             @endif
                             <div class="card-green">
-                                <p class="font-semibold">Nombre de Parcelles</p>
+                                <p class="font-semibold">Nombre d' Offres</p>
                                 <p class="stat">{{ $farmers->sum(function ($farmer) { return count($farmer->plots); }) }}</p>
                             </div>
                             <!-- Zone de texte responsive -->
-                            <div class="text-green-800 py-5 max-w-full col-span-1 md:col-span-2 md:text-base">
+                            <div class="text-amber-800 py-5 max-w-full col-span-1 md:col-span-2 md:text-base">
                                 <p class="font-semibold text-base">Repartitions de Producteurs</p>
-                                <p class="mt-5 text-green-800">
+                                <p class="mt-5 text-amber-800">
                                     <span class="font-semibold text-base">Hommes: </span><span class="stat-farmers">{{ $farmers->whereIn('sexe', ['M', 'H'])->count() }}</span>
                                     <span class="font-semibold text-base">Femmes: </span><span class="stat-farmers">{{ $farmers->where('sexe', 'F')->count() }}</span>
                                 </p>
@@ -54,7 +54,7 @@
 
                     <!-- Partie droite -->
                     <div class="w-full md:w-1/3  px-4 mt-4 md:mt-0">
-                        <div class="bg-green-100 rounded-lg my-5 py-7 px-10 text-green-800 flex flex-col md:flex-row items-center justify-between shadow-lg">
+                        <div class="bg-amber-100 rounded-lg my-5 py-7 px-10 text-amber-800 flex flex-col md:flex-row items-center justify-between shadow-lg">
                             <div class="mb-4 md:mb-0">
                                 <p>Utilisateurs créés</p>
                                 <p class="stat">{{ $users->count() }}</p>
@@ -73,12 +73,12 @@
                         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full text-left text-sm font-light my-10">
-                                <thead class="border-b bg-green-custom text-white font-medium dark:border-green-custom">
+                                <thead class="border-b bg-amber-800 text-white font-medium dark:border-amber-900">
                                     <tr class="">
                                     <th scope="col" class="rounded-tl-lg px-6 py-4">#</th>
                                     <th scope="col" class="px-6 py-4">Coopératives</th>
                                     <th scope="col" class="px-6 py-4">Total Producteurs</th>
-                                    <th scope="col" class="px-6 py-4">Total Parcelles</th>
+                                    <th scope="col" class="px-6 py-4">Total offres</th>
                                     <th scope="col" class=" px-6 py-4">Total Producteurs Hommes</th>
                                     <th scope="col" class="rounded-tr-lg px-6 py-4">Total Producteurs Femmes</th>
                                     </tr>
@@ -87,7 +87,7 @@
                                 <?php $i=0;?>
                                   
                                         @forelse($agribusinesses as $key => $agribusiness)
-                                    <tr class="border-b border-t-1  border-green-900 {{ $i % 2 !== 0 ? '' : 'bg-green-100' }} dark:border-green-900">
+                                    <tr class="border-b border-t-1  border-amber-900 {{ $i % 2 !== 0 ? '' : 'bg-amber-100' }} dark:border-amber-900">
                                         <?php $i++ ?>
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $i }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $agribusiness->name }}</td>
@@ -98,7 +98,7 @@
                                     </tr>
                                    
                                     @empty
-                                        <tr class="border-b border-t-4 border-green-900 dark:border-green-900">
+                                        <tr class="border-b border-t-4 border-amber-900 dark:border-amber-900">
                                             <td colspan="6" class="whitespace-nowrap text-center px-6 py-4 text-2xl font-bold">
                                                 Aucune donnée enregistrée
                                             </td>

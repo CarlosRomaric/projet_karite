@@ -4,8 +4,8 @@
             <div class="flex flex-col sm:flex-row mt-2 w-full justify-between">
                 <!-- Formulaire de recherche et bouton Vider -->
                 <div class="mb-2 sm:mb-0 sm:flex-grow w-full sm:w-60 sm:order-1">
-                    <input type="search" class="bg-green-100 w-30 rounded-lg shadow px-4 py-2 mt-2" wire:model.live="search" placeholder="Saisir pour rechercher">
-                    <button class="btn-green-cnra  mt-2" wire:click="resetSearch">Vider</button>
+                    <input type="search" class="bg-amber-100 w-30 rounded-lg shadow px-4 py-2 mt-2" wire:model.live="search" placeholder="Saisir pour rechercher">
+                    <button class="btn-amber-karite  mt-2" wire:click="resetSearch">Vider</button>
                 </div>
                 <!-- Boutons d'action -->
                 <div class="flex flex-col sm:flex-row items-start sm:items-center mt-2 sm:mt-0 sm:order-2">
@@ -13,7 +13,7 @@
                     <!-- Boutons d'import, export et créer un producteur -->
                     <div class="flex flex-col sm:flex-row mt-2 sm:mt-0 sm:ml-2 w-full sm:w-auto">
                     
-                        <button class="btn-green-cnra flex items-center w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2 " data-te-toggle="modal" data-te-target="#roleModal" data-te-ripple-init data-te-ripple-color="light" wire:click="create"> 
+                        <button class="btn-amber-karite flex items-center w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2 " data-te-toggle="modal" data-te-target="#roleModal" data-te-ripple-init data-te-ripple-color="light" wire:click="create"> 
 
                             <img src="{{ asset('assets/img/icons/add.svg') }}" alt="" class="w-5 pr-2">
                             <label for="" class="cursor-pointer">Ajouter un utilisateur</label>
@@ -27,12 +27,13 @@
                     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full text-left text-sm font-light my-10">
-                                <thead class="bg-green-cnra bt-table">
+                                <thead class="bg-amber-800 bt-table">
                                     <tr class="">
                                     <th scope="col" class="rounded-tl-lg px-6 py-4">#</th>
                                     <th scope="col" class="px-6 py-4">Nom & prénoms</th>
                                     <th scope="col" class="px-6 py-4">Nom d'utilisateur</th>
                                     <th scope="col" class="px-6 py-4">Contact</th>
+                                    <th scope="col" class="px-6 py-4">Poste</th>
                                     <th scope="col" class="px-6 py-4">Coopérative</th>
                                     <th scope="col" class="px-6 py-4">Rôles</th>
                                    
@@ -46,17 +47,18 @@
                                     @forelse($users as $user)
                                         
                                     <?php $i++ ?>
-                                    <tr class="border-b border-t-2 border-green-900 {{ $i % 2 !== 0 ? '' : 'bg-green-100' }} dark:border-green-900">
+                                    <tr class="border-b border-t-2 border-amber-900 {{ $i % 2 !== 0 ? '' : 'bg-amber-100' }} dark:border-amber-900">
                                         <td class="whitespace-nowrap px-6 py-4 font-medium" wire:key="{{ $user->id }}">{{ $i }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $user->fullname }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $user->username }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $user->phone }}</td>
+                                        <td class="whitespace-nowrap px-6 py-4">{{ ($user->job) ? $user->job : ' - ' }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">
-                                            {{ ($user->agribusiness) ? $user->agribusiness->name : ' - ' }}
+                                            {{ ($user->agribusiness) ? $user->agribusiness->denomination : ' - ' }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4">
                                            @foreach ($user->roles as $role)
-                                                <span class="inline-block bg-green-500 text-white text-xs font-semibold px-4 py-2 mx-1 rounded-full">
+                                                <span class="inline-block bg-amber-500 text-white text-xs font-semibold px-4 py-2 mx-1 rounded-full">
                                                         {{ $role->name }}
                                                 </span>
                                            @endforeach

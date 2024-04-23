@@ -1,7 +1,7 @@
 @if (session()->has('message'))
-    <div class="relative flex flex-col sm:flex-row sm:items-center bg-gray-200 dark:bg-green-700 shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 mb-3 mt-3">
+    <div class="relative flex flex-col sm:flex-row sm:items-center bg-gray-200 dark:bg-amber-700 shadow rounded-md py-5 pl-6 pr-8 sm:pr-6 mb-3 mt-3">
         <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
-            <div class="text-green-500" dark:text-gray-500>
+            <div class="text-amber-500" dark:text-gray-500>
                 <svg class="w-6 sm:w-5 h-6 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
             <div class="text-sm font-medium ml-3">Success!.</div>
@@ -50,8 +50,8 @@
                     
                     <div class="flex justify-end mt-5">
 
-                        <button type="submit" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2">Enregistrer</button>
-                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-green-900 font-bold py-2 px-4 rounded" wire:click="closeModal">Annuler</button>
+                        <button type="submit" class="bg-amber-800 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded mr-2">Enregistrer</button>
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-amber-900 font-bold py-2 px-4 rounded" wire:click="closeModal">Annuler</button>
                     </div>
                 </form>
 
@@ -71,8 +71,8 @@
                 <h2 class="text-2xl font-bold mb-4">Voulez vous supprimer cet role ?</h2>
                 <div class="flex justify-end mt-5">
 
-                        <button type="button" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$roleId}}")'>Valider</button>
-                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-green-900 font-bold py-2 px-4 rounded" wire:click="closeModalDelete">Annuler</button>
+                        <button type="button" class="bg-amber-800 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$roleId}}")'>Valider</button>
+                        <button type="button" class="bg-gray-200 hover:bg-gray-300 text-amber-900 font-bold py-2 px-4 rounded" wire:click="closeModalDelete">Annuler</button>
                 </div>
             </div>
         </div>
