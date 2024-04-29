@@ -34,6 +34,16 @@ class Farmer extends Model
         return $this->belongsTo(Agribusiness::class);
     }
 
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class);
+    }
+
     /**
      * @param Builder $builder
      */

@@ -50,6 +50,16 @@ if (!function_exists('date_format_fr')) {
     }
 }
 
+if (!function_exists('my_date_format_fr')) {
+    /**
+     * @param $date
+     * @return string
+     */
+    function my_date_format_fr($date) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d/m/Y');
+    }
+}
+
 if (!function_exists('custom_date_format')) {
     /**
      * @param $date

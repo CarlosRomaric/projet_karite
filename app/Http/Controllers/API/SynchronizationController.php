@@ -82,24 +82,28 @@ class SynchronizationController extends Controller
 
     private function formatFarmerData($row)
     {
+        if(array_key_exists('picture', $row) && !is_null($row['picture'])) {
+            $filenamePicture = $row('picture')->getClientOriginalName();
+            $pathPicture = 'public/farmers/';
+            $famerPicture = $row('picture')->storeAs($pathPicture, $filenamePicture);
+        }else{
+            return null;
+        } 
+      
+
         return [
-            'picture' => array_key_exists('picture', $row) && !is_null($row['picture']) ? storeBase64ToImage($row['picture']) : null,
-            'gps_code' => array_key_exists('gpsCode', $row) && !is_null($row['gpsCode']) ? $row['gpsCode'] : null,
-            'identifier' => $row['identifier'],
+            //'picture' => array_key_exists('picture', $row) && !is_null($row['picture']) ? storeBase64ToImage($row['picture']) : null,
+            'picture' => $famerPicture,
             'fullname' => $row['name'],
             'sexe' => $row['gender'],
             'phone' => $row['phone'],
-            'manager_fullname' => $row['managerName'],
-            'manager_sexe' => $row['managerGender'],
-            'manager_phone' => $row['managerPhone'],
-            'locality' => $row['section'],
-            'number_of_plots' => (int) $row['numberOfPlots'],
-            'number_of_children' => (int) $row['numberOfChildren'],
-            'number_of_dependants' => (int) $row['numberOfDependants'],
-            'marital_status' => $row['maritalStatus'],
-            'number_of_women' => $row['numberOfWomen'],
-            'born_date' => $row['birthDate'],
-            'born_place' => $row['birthPlace'],
+            'born_date' => $row['born_date'],
+            'born_place' => $row['born_place'],
+            'phone_payment' => $row['phone_payment'],
+            'region_id' => $row['region_id'],
+            'departement_id' => $row['departement_id'],
+            'locality' => $row['locality'],
+            'activity' => $row['activity'],
             'agribusiness_id' => \request()->user() ? request()->user()->agribusiness_id : null,
         ];
     }

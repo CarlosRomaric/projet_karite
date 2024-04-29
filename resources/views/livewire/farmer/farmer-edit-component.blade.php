@@ -16,6 +16,8 @@
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                       <form wire:submit.prevent="{{ updateFarmer() }}" >
                             @csrf
+
+                               
                             <div class="py-6">
                                 <h1 class="font-semibold uppercase text-gray-700 text-2xl border-b-2 border-gray-700">1. Coordonnées</h1>
                             </div>

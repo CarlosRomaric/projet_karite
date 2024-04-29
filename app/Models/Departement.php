@@ -15,6 +15,11 @@ class Departement extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function farmers()
+    {
+        return $this->hasMany(Farmer::class);
+    }
+
     public function agribusinesses(){
         return $this->hasMany(Agribusiness::class);
     }
