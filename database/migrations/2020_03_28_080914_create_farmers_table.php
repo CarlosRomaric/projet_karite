@@ -27,7 +27,9 @@ class CreateFarmersTable extends Migration
             $table->string('activity')->nullable();
             $table->string('sexe', 10)->nullable();
             $table->uuid('agribusiness_id')->nullable();
+            $table->uuid('user_id')->nullable();
            
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('region_id')->references('id')->on('regions');
             $table->foreign('departement_id')->references('id')->on('departements');
             $table->foreign('agribusiness_id')->references('id')->on('agribusinesses');

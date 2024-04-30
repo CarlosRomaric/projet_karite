@@ -115,4 +115,8 @@ class User extends Model implements Authenticatable
             });
         }
     }
+
+    public function farmers(){
+        return $this->hasMany(Farmer::class);
+    }
 }

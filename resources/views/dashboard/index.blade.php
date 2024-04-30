@@ -39,7 +39,7 @@
                             @endif
                             <div class="card-green">
                                 <p class="font-semibold">Nombre d' Offres</p>
-                                <p class="stat">{{ $farmers->sum(function ($farmer) { return count($farmer->plots); }) }}</p>
+                                <p class="stat">0</p>
                             </div>
                             <!-- Zone de texte responsive -->
                             <div class="text-amber-800 py-5 max-w-full col-span-1 md:col-span-2 md:text-base">
@@ -92,7 +92,7 @@
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $i }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $agribusiness->name }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $farmers->where('agribusiness_id', $agribusiness->id)->count() }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4">{{ $farmers->where('agribusiness_id', $agribusiness->id)->sum(function ($farmer) { return count($farmer->plots); }) }}</td>
+                                        <td class="whitespace-nowrap px-6 py-4">0</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $farmers->where('agribusiness_id', $agribusiness->id)->whereIn('sexe', ['M', 'H'])->count() }}</td>
                                         <td class="whitespace-nowrap px-6 py-4">{{ $farmers->where('agribusiness_id', $agribusiness->id)->where('sexe', 'F')->count() }}</td>
                                     </tr>

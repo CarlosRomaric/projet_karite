@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\API\Auth\AuthController;
+use App\Models\Agribusiness;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\OfferController;
 use App\Http\Controllers\API\FarmerController;
+use App\Http\Controllers\API\RegionController;
+use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
+use App\Http\Controllers\API\AgribusinessController;
 use App\Http\Controllers\API\SynchronizationController;
 
 /*
@@ -74,12 +78,34 @@ Route::namespace('API')->name('api.')->group(function () {
 
 
     });
+    /*
+    * Agribusiness routes
+    */
+   Route::prefix('agribusinesses')->name('agribusinesses.')->group(function () {
+       Route::get('/', [AgribusinessController::class, 'index'])->name('index');
+   });
+
+    /**
+     * Regions routes
+     */
+    Route::prefix('regions')->name('regions.')->group(function () {
+        Route::get('/', [RegionController::class, 'index'])->name('index');
+    });
 
     /**
      * Farmer routes
      */
     Route::prefix('farmers')->name('farmers.')->group(function () {
         Route::get('/', [FarmerController::class, 'index'])->name('index');
+        Route::post('/store', [FarmerController::class, 'store'])->name('store');
+    });
+
+    /**
+     * Offers routes
+     */
+    Route::prefix('offers')->name('offers.')->group(function () {
+        Route::get('/', [OfferController::class, 'index'])->name('index');
+        Route::post('/store', [OfferController::class, 'store'])->name('store');
     });
 
     /**

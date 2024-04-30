@@ -44,6 +44,9 @@ class Farmer extends Model
         return $this->belongsTo(Departement::class);
     }
 
+    
+    
+
     /**
      * @param Builder $builder
      */
@@ -52,5 +55,9 @@ class Farmer extends Model
         if (!auth()->user()->isTraceAgriAdmin() && !auth()->user()->isPlateformAdmin()) {
             $builder->where('agribusiness_id', auth()->user()->agribusiness_id);
         }
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

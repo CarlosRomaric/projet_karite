@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $this->authorize('ADMIN TABLEAU DE BORD');
 
         $users = User::retrievingByUsersType()->get();
-        $farmers = Farmer::with('plots')->retrievingByUsersType()->get();
+        $farmers = Farmer::retrievingByUsersType()->get();
         $agribusinesses = Agribusiness::orderBy('denomination')->paginate(10);
 
         return view('dashboard.index', compact('farmers', 'agribusinesses', 'users'));

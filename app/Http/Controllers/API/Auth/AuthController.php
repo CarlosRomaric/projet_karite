@@ -35,19 +35,25 @@ class AuthController extends BaseController
         if(Auth::attempt($credentials)){ 
            
             $user = $request->user(); 
-            $tokenResult =  $user->createToken('TraceAgri Personal Access Client');
-            $success['access_token'] = $tokenResult->accessToken; 
-            $success['token_type']='Bearer';
-            $success['expires_at']=Carbon::parse(
-                $tokenResult->token->expires_at
-            )->toDateString();
-            $success['user'] =  collect($user)->except(['created_at','updated_at']);
+            if($user->isMobile()==true){
+                $tokenResult =  $user->createToken('Karite Personal Access Client');
+                $success['access_token'] = $tokenResult->accessToken; 
+                $success['token_type']='Bearer';
+                $success['roles']='MOBILE';
+                $success['expires_at']=Carbon::parse(
+                    $tokenResult->token->expires_at
+                )->toDateString();
+                $success['user'] =  collect($user)->except(['created_at','updated_at']);
    
-            return $this->sendResponse($success, 'Connexion effectuer avec success.');
+                return $this->sendResponse($success, 'Connexion effectuer avec success.');
+            }else{
+                return $this->sendError('Non autorisé.', ['error'=>'cet utilisateur n\'a pas les permissions pour se connecter au mobile'],401);
+            }
+            
         } 
         else{ 
-           
-            return $this->sendError('Unauthorised.', ['error'=>'Non autorisé']);
+            
+            return $this->sendError('Unauthorised.', ['error'=>'le nom d\'utilisateur ou le mot de passe n\'est pas correcte'], 401);
         } 
     
     }

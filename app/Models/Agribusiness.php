@@ -40,4 +40,8 @@ class Agribusiness extends Model
         return $this->hasMany(User::class);
     }
 
+    public function farmers(){
+        return $this->hasMany(Farmer::class);
+    }
+
 }

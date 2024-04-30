@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }} @yield('title')</title>
 
-    <link rel="shortcut icon" type="image/png" href="{{ asset('images/icon-traceagri-white.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo-karite-white.png') }}" />
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -46,6 +46,9 @@
                                 <a href="{{ route('profile.edit', ['user' => auth()->id()]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mon profile</a>
                             </li>
                         
+                            <li>
+                                <a href="/telescope" target="_blank" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Telescope</a>
+                            </li>
                             <li>
                                 <a href="{{ route('auth.logout') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Deconnexion</a>
                             </li>

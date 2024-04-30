@@ -8,11 +8,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Farmer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\API\BaseController;
 
-class FarmerController extends Controller
+class FarmerController extends BaseController
 {
 
     /**
@@ -20,7 +23,49 @@ class FarmerController extends Controller
      */
     public function __construct()
     {
+        
         $this->middleware('auth:api');
+    }
+
+    public function rules(){
+        $rules = [
+            'identifier'=>'required',
+            'fullname'=>'required',
+            'picture'=>'required|image|max:2048',
+            'phone'=>'required',
+            'phone_payment'=>'required',
+            'born_date'=>'required',
+            'born_place'=>'required',
+            'region_id'=>'required',
+            'departement_id'=>'required',
+            'locality'=>'required',
+            'activity'=>'required',
+            'sexe'=>'required',
+            'agribusiness_id'=>'required',
+        ];
+
+        return $rules;
+    }
+
+    public function messages(){
+        $messages = [
+            'identifier.required'=>'le matricule du producteur  est obligatoire',
+            'fullname.required'=>'le chmap Nom & prénoms est obligatoire',
+            'picture.required'=>'l\'image est obligatoire',
+            'picture.image'=>'la photo du producteur doit être une image',
+            'picture.max'=>'la photo  ne doit pas être de plus de 2 Mo',
+            'phone.required'=>'le numéro de téléphone est obligatoire',
+            'phone_payment.required'=>'le numéro de téléphone mobile est obligatoire',
+            'born_date.required'=>'la date de naissance est obligatoire',
+            'born_place.required'=>'le lieu de naissance est obligatoire',
+            'region_id.required'=>'la region est obligatoire',
+            'departement_id.required'=>'le departement est obligatoire',
+            'locality.required'=>'le lieu de residence est obligatoire',
+            'activity.required'=>'le choix de l\'activité est obligatoire',
+            'sexe.required'=>'le choix du sexe est obligatoire',
+            'agribusiness_id.required'=>'le choix de la coopérative ou Indepant est obligatoire',
+        ];
+        return $messages;
     }
 
     public function index(Request $request)
@@ -28,7 +73,7 @@ class FarmerController extends Controller
         $total = Farmer::where('agribusiness_id', $request->user()->agribusiness_id)->count();
         return response()->json([
             'status' => 'success',
-            'message' => 'Farmer list retrieving successfully.',
+            'message' => 'Liste des producteurs.',
             'data' =>  $this->getFarmersByAgribusiness($request),
             'meta' => [
                 'total' => $total,
@@ -39,39 +84,67 @@ class FarmerController extends Controller
         ]);
     }
 
+    public function store(Request $request){
+        $data = Validator::make($request->all(),$this->rules(),$this->messages());
+        
+        if ($data->fails()) {
+
+            return $this->sendError('une erreur s\'est produite', $data->errors());
+
+        }else{
+            $user = Auth::user();
+            $data = [
+                'identifier'=>$request->identifier,
+                'fullname'=>$request->fullname,
+                'picture'=>$request->file('picture')->store('public/farmers'),
+                'phone'=>$request->phone,
+                'phone_payment'=>$request->phone_payment,
+                'born_date'=>$request->born_date,
+                'born_place'=>$request->born_place,
+                'region_id'=>$request->region_id,
+                'departement_id'=>$request->departement_id,
+                'locality'=>$request->locality,
+                'activity'=>$request->activity,
+                'sexe'=>$request->sexe,
+                'agribusiness_id'=>$request->agribusiness_id,
+                'user_id'=>$user->id
+            ];
+
+            $farmer = Farmer::create($data);
+            $success['producteur']=$farmer;
+            return $this->sendResponse($farmer,'Votre enregistrement a été effectué avec success');
+        }
+    }
+
 
 
     private function getFarmersByAgribusiness($request)
     {
         $skip = $request->get('per_page', 10) * ($request->get('page', 1) - 1);
         return Farmer::query()
-            ->where('agribusiness_id', $request->user()->agribusiness_id)
+            //->with('region','departement')
+            //->where('agribusiness_id', $request->user()->agribusiness_id)
             ->orderBy('fullname')
             ->take($request->get('per_page', 10))
             ->skip($skip)
-            ->with('plots')
             ->get()
             ->transform(function ($farmer) {
                 return [
                     'id' => $farmer->id,
                     'identifier' => $farmer->identifier,
-                    'gps_code' => $farmer->gps_code,
                     'fullname' => $farmer->fullname,
                     'born_date' => $farmer->born_date,
                     'born_place' => $farmer->born_place,
                     'locality' => $farmer->locality,
                     'phone' => $farmer->phone,
+                    'phone_payment' => $farmer->phone_payment,
                     'sexe' => $farmer->sexe,
-                    'number_of_children' => $farmer->number_of_children,
-                    'number_of_dependants' => $farmer->number_of_dependants,
-                    'marital_status' => $farmer->marital_status,
-                    'number_of_women' => $farmer->number_of_women,
-                    'number_of_plots' => $farmer->number_of_plots,
-                    'manager_fullname' => $farmer->manager_fullname,
-                    'manager_sexe' => $farmer->manager_sexe,
-                    'manager_phone' => $farmer->manager_phone,
-                    'picture' => $farmer->picture ? base64_encode(file_get_contents(asset('storage/'.$farmer->picture))) : null,
+                    'activity' => $farmer->activity,
+                    'picture' => $farmer->picture,
+                    'region_id' => $farmer->region_id,
+                    'departement_id' => $farmer->departement_id,
                     'agribusiness_id' => $farmer->agribusiness_id,
+                    'user_id'=> $farmer->user_id,
                     'created_at' => $farmer->created_at,
                     'updated_at' => $farmer->updated_at
                 ];
