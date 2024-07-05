@@ -1,7 +1,7 @@
 <div>
     @include('livewire.farmer.farmermodal')
 
-<label for="" class="text-4xl font-bold my-2">Liste des producteurs</label>
+<label for="" class="text-4xl font-bold my-2">Liste des Fournisseurs</label>
     
     <div class="flex flex-col sm:flex-row mt-2 w-full justify-between">
         <!-- Formulaire de recherche et bouton Vider -->
@@ -35,7 +35,7 @@
                 @can('ADMIN PRODUCTEUR ADD')
                 <button  class="btn-amber-karite flex items-center w-full sm:w-auto mt-2 sm:mt-0 sm:ml-2" wire:click="create" >
                     <img src="{{ asset('assets/img/icons/add.svg') }}" alt="" class="w-5 pr-2">
-                    <label for="" class="cursor-pointer">Créer un producteur</label>
+                    <label for="" class="cursor-pointer">Ajouter un fournisseur</label>
                 </button>
                 @endcan
             </div>

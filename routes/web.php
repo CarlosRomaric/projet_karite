@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlotController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\LogoutController;
@@ -17,9 +19,10 @@ use App\Http\Controllers\AppMobileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\AgribusinessController;
+use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\ExportToExcelController;
-use App\Http\Controllers\ImportViaExcelController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ImportViaExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,5 +117,20 @@ Route::group(['middleware' => 'auth'], function() {
     
         Route::prefix('appli-mobile')->group(function() {
             Route::get('/', [AppMobileController::class,'index'])->name('app-mobile.index');
+        });
+
+        Route::prefix('offers')->group(function(){
+            Route::view('/', 'offers.index')->name('offers');
+            Route::get('/index',[OfferController::class,'index'])->name('offers.index');
+        });
+
+        Route::prefix('orders')->group(function(){
+            Route::view('/', 'orders.index')->name('orders');
+            Route::get('/index',[OrderController::class,'index'])->name('orders.index');
+        });
+
+        Route::prefix('certification')->group(function(){
+            Route::view('/', 'certification.index')->name('certification');
+            Route::get('/index',[CertificationController::class,'index'])->name('certification.index');
         });
 });

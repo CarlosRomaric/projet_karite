@@ -39,7 +39,7 @@
         
     </div>
 
-    <div class="px-4 md:px-24 pt-24 pb-10  text-center">
+    <div class="px-4 md:px-24 pt-24 pb-10  text-center" id="about">
         <div class="titles-container">
             <img src="{{ asset('assets/img/circle-icons.png') }}" alt="" class="h-auto">
             <h1 class="text-3xl uppercase font-bold text-amber-950">KARITÉ 2.0 POUR SOUTENIR LA PRODUCTION ET LA COMMERCIALISATION DU BEURRE DE KARITÉ AVEC SES PRODUITS DÉRIVÉS</h1>
@@ -64,7 +64,7 @@
         </div>  
     </div>
 
-    <div class="px-4  md:px-24 py-14 bg-amber-100/50">
+    <div class="px-4  md:px-24 py-14 bg-amber-100/50" id="advantage">
 
         <div class="grid place-items-center">
             <div class="titles-container grid place-items-center">

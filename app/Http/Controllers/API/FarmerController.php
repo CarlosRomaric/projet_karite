@@ -29,7 +29,7 @@ class FarmerController extends BaseController
 
     public function rules(){
         $rules = [
-            'identifier'=>'required',
+
             'fullname'=>'required',
             'picture'=>'required|image|max:2048',
             'phone'=>'required',
@@ -49,7 +49,7 @@ class FarmerController extends BaseController
 
     public function messages(){
         $messages = [
-            'identifier.required'=>'le matricule du producteur  est obligatoire',
+            
             'fullname.required'=>'le chmap Nom & prénoms est obligatoire',
             'picture.required'=>'l\'image est obligatoire',
             'picture.image'=>'la photo du producteur doit être une image',
@@ -80,7 +80,7 @@ class FarmerController extends BaseController
                 'per_page' => (int) $request->get('per_page', 10),
                 'page' => (int) $request->get('page', 1),
                 'total_page' => ceil($total / $request->get('per_page', 10))
-            ]
+            ]   
         ]);
     }
 
@@ -94,7 +94,7 @@ class FarmerController extends BaseController
         }else{
             $user = Auth::user();
             $data = [
-                'identifier'=>$request->identifier,
+               
                 'fullname'=>$request->fullname,
                 'picture'=>$request->file('picture')->store('public/farmers'),
                 'phone'=>$request->phone,
@@ -116,38 +116,80 @@ class FarmerController extends BaseController
         }
     }
 
+    public function synchronisationFarmer(Request $request)
+    {
+        
+    }
+
+    public function update(Request $request,  Farmer $farmer){
+        if(!empty($request->picture)){
+            $rules = $this->rules();
+        }else{
+            $rules = $this->rules()['picture']='';
+        }
+        $data = Validator::make($request->all(), $rules, $this->messages());
+        
+        if ($data->fails()) {
+
+            return $this->sendError('une erreur s\'est produite', $data->errors());
+
+        }else{
+            $user = Auth::user();
+            $data = [
+                
+                'fullname'=>$request->fullname,
+                'picture'=>$request->file('picture')->store('public/farmers'),
+                'phone'=>$request->phone,
+                'phone_payment'=>$request->phone_payment,
+                'born_date'=>$request->born_date,
+                'born_place'=>$request->born_place,
+                'region_id'=>$request->region_id,
+                'departement_id'=>$request->departement_id,
+                'locality'=>$request->locality,
+                'activity'=>$request->activity,
+                'sexe'=>$request->sexe,
+                'agribusiness_id'=>$request->agribusiness_id,
+                'user_id'=>$user->id
+            ];
+
+            $farmer->update($data);
+            $success['producteur']=$farmer;
+            return $this->sendResponse($farmer,'les informations du producteur ont bien été mis a jour avec success');
+        }
+    }
+
 
 
     private function getFarmersByAgribusiness($request)
     {
         $skip = $request->get('per_page', 10) * ($request->get('page', 1) - 1);
         return Farmer::query()
-            //->with('region','departement')
+            ->with('region','departement')
             //->where('agribusiness_id', $request->user()->agribusiness_id)
             ->orderBy('fullname')
             ->take($request->get('per_page', 10))
             ->skip($skip)
-            ->get()
-            ->transform(function ($farmer) {
-                return [
-                    'id' => $farmer->id,
-                    'identifier' => $farmer->identifier,
-                    'fullname' => $farmer->fullname,
-                    'born_date' => $farmer->born_date,
-                    'born_place' => $farmer->born_place,
-                    'locality' => $farmer->locality,
-                    'phone' => $farmer->phone,
-                    'phone_payment' => $farmer->phone_payment,
-                    'sexe' => $farmer->sexe,
-                    'activity' => $farmer->activity,
-                    'picture' => $farmer->picture,
-                    'region_id' => $farmer->region_id,
-                    'departement_id' => $farmer->departement_id,
-                    'agribusiness_id' => $farmer->agribusiness_id,
-                    'user_id'=> $farmer->user_id,
-                    'created_at' => $farmer->created_at,
-                    'updated_at' => $farmer->updated_at
-                ];
-            });
+            ->get();
+            // ->transform(function ($farmer) {
+            //     return [
+            //         'id' => $farmer->id,
+            //         'identifier' => $farmer->identifier,
+            //         'fullname' => $farmer->fullname,
+            //         'born_date' => $farmer->born_date,
+            //         'born_place' => $farmer->born_place,
+            //         'locality' => $farmer->locality,
+            //         'phone' => $farmer->phone,
+            //         'phone_payment' => $farmer->phone_payment,
+            //         'sexe' => $farmer->sexe,
+            //         'activity' => $farmer->activity,
+            //         'picture' => $farmer->picture,
+            //         'region_id' => $farmer->region_id,
+            //         'departement_id' => $farmer->departement_id,
+            //         'agribusiness_id' => $farmer->agribusiness_id,
+            //         'user_id'=> $farmer->user_id,
+            //         'created_at' => $farmer->created_at,
+            //         'updated_at' => $farmer->updated_at
+            //     ];
+            // });
     }
 }

@@ -24,7 +24,7 @@
                 </svg>
                
                  
-                <h2 class="text-2xl font-bold mb-4">{{ $farmerId ? 'Modification des informations du producteur': 'Creation de producteur' }}</h2>
+                <h2 class="text-2xl font-bold mb-4">{{ $farmerId ? 'Modification des informations du fournisseur': 'Ajout de fournisseur' }}</h2>
 
                 <form  wire:submit.prevent="{{ $farmerId ? 'update':'saveFarmer' }} "  enctype="multipart/form-data">
                     @csrf
@@ -44,12 +44,12 @@
                         <div class="flex gray-400 mb-3">
                             <div class="w-full px-3 mb-3 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="picture">
-                                    Ajouter la photo du producteur
+                                    Ajouter la photo du fournisseur
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border{{ $errors->has('picture') ? ' border-red-500' : '' }} rounded
                                  py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    name="picture" wire:model="picture" id="picture" type="file" placeholder="Ajouter la photo du producteur" >
+                                    name="picture" wire:model="picture" id="picture" type="file" placeholder="Ajouter la photo du fournisseur" >
                                 @if($errors->has('picture'))
                                     <p class="text-red-500 text-sm">{{ $errors->first('picture') }}</p>
                                 @endif
@@ -79,7 +79,7 @@
                         </div>
 
                         <div class="flex gray-400 mb-3">                         
-
+                            {{-- 
                             <div class="w-full px-3 mb-3 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="identifier">
                                     Identifiant
@@ -92,7 +92,7 @@
                                     <p class="text-red-500 text-sm">{{ $errors->first('identifier') }}</p>
                                 @endif
                             </div>
-
+                            --}}
                             <div class="w-full px-3 mb-3 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="fullname">
                                     Nom & prénoms
@@ -269,11 +269,10 @@
                                 <div class="relative">
                                     <select class="block appearance-none w-full bg-gray-200 border {{ $errors->has('activity') ? 'border-red-500' : 'border-gray-200' }}
                                 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white" id="activite" name="activity" wire:model="activity">
-                                        <option value="">Sélectionner l'activité du producteur</option>
+                                        <option value="">Sélectionner l'activité du fournisseur</option>
                                         <option value="C">Collectrice</option>
                                         <option value="T">Transformatrice</option>
                                         <option value="CT">Collecte et transformatrice </option>
-
                                         
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -326,14 +325,14 @@
                 </svg>
                
                  
-                <h2 class="text-2xl font-bold mb-4">Information du producteur</h2>
+                <h2 class="text-2xl font-bold mb-4">Information du fournisseur</h2>
 
                
                     @if($step === 1)
                         <div class="flex gray-400 mb-3">
                             <div class="w-full px-3 mb-3 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="picture">
-                                    photo du producteur
+                                    photo du fournisseur
                                 </label>
                                
                             </div>
@@ -501,7 +500,7 @@
                 class="ml-auto w-6 h-6 text-gray-900 dark:text-gray-900 cursor-pointer fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
                 </svg>
-                <h2 class="text-2xl font-bold mb-4">Voulez vous supprimer cet producteur ?</h2>
+                <h2 class="text-2xl font-bold mb-4">Voulez vous supprimer cet fournisseur ?</h2>
                 <div class="flex justify-end mt-5">
 
                         <button type="button" class="btn-green-table hover:bg-green-800 text-white font-bold py-2 px-4 rounded mr-2" wire:click='delete("{{$farmerId}}")'>Valider</button>

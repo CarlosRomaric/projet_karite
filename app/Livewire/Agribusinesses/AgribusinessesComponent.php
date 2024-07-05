@@ -3,15 +3,16 @@
 namespace App\Livewire\Agribusinesses;
 
 use App\Models\User;
+use App\Models\Region;
 use Livewire\Component;
 use App\Models\Departement;
 use Livewire\Attributes\On;
 use App\Models\Agribusiness;
+use App\Utilities\NewSmsAPI;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use App\Http\Requests\Agribusinesses\AgribusinessCreateRequest;
-use App\Models\Region;
 
 class AgribusinessesComponent extends Component
 {
@@ -20,12 +21,13 @@ class AgribusinessesComponent extends Component
 
     public $step = 1;
     public $agribusinessId;
-    public $matricule, $denomination, $sigle, $address, $region_id, $departement_id, $village, $bank, $certification, $registre_commerce, $dfe, $number_sections, $number_unite_transformations, $file_producers, $status; 
+    public $matricule, $denomination, $sigle, $address, $region_id, $departement_id, $headquaters, $bank, $certification, $registre_commerce, $dfe, $number_sections, $number_unite_transformations, $logo, $status; 
     public $pca, $sup, $photo_pca, $photo_sup;
     public $statusFilter;
     public $agribusinessFilter;
     public $regions, $departements;
     public $doc_dfe, $doc_registre_commerce;
+    public $statusCoop;
    
     public $motif;
     public $close = 0;
@@ -51,8 +53,7 @@ class AgribusinessesComponent extends Component
             'sigle'=>'required',
             'region_id'=>'required',
             'departement_id'=>'required',
-            'village'=>'required',
-            'address'=>'required',
+            'headquaters'=>'required',
             'certification'=>'required',
             'dfe'=>'required|mimes:pdf,png,jpeg,jpg|max:2048',
             'bank'=>'required',
@@ -61,8 +62,8 @@ class AgribusinessesComponent extends Component
             'number_unite_transformations'=>'required|numeric',
         ];
 
-        if ($this->file_producers) {
-            $rules['file_producers'] = 'mimes:csv,xlsx,xls|max:2048';
+        if ($this->logo) {
+            $rules['logo'] = 'mimes:csv,xlsx,xls|max:2048';
         }
         
         return   $rules;
@@ -73,7 +74,7 @@ class AgribusinessesComponent extends Component
         $messages = [
             'required'=>'ce champ est obligatoire',
             'image'=>'ce champ doit être une image',
-            'file_producers.mimes'=>'le fichier que vous devez uploader doit être de l\'un de ces types csv,xlsx,xlsl,xls'
+            'logo.mimes'=>'le fichier que vous devez uploader doit être de l\'un de ces types csv,xlsx,xlsl,xls'
         ];
         
         return $messages;
@@ -174,7 +175,7 @@ class AgribusinessesComponent extends Component
       
         $agribusiness->region_id = $this->region_id;
         $agribusiness->departement_id = $this->departement_id;
-        $agribusiness->village = $this->village;
+        $agribusiness->headquaters = $this->headquaters;
         $agribusiness->bank = $this->bank;
 
         $filenameRg = $this->registre_commerce->getClientOriginalName();
@@ -187,10 +188,10 @@ class AgribusinessesComponent extends Component
         $agribusiness->number_sections = $this->number_sections;
         $agribusiness->number_unite_transformations = $this->number_unite_transformations;
 
-        if($this->file_producers){
-            $pathFileProducers = $this->file_producers->getClientOriginalName();
-            $filenameFileProducers = 'public/file_producers/'.trim($this->sigle);
-            $agribusiness->file_producers = $this->file_producers->storeAs($pathFileProducers, $filenameFileProducers);
+        if($this->logo){
+            $pathFileProducers = $this->logo->getClientOriginalName();
+            $filenameFileProducers = 'public/logo/'.trim($this->sigle);
+            $agribusiness->logo = $this->logo->storeAs($pathFileProducers, $filenameFileProducers);
         }
       
         $agribusiness->status = 0;
@@ -217,6 +218,14 @@ class AgribusinessesComponent extends Component
             if(!empty(session('errorMotif'))){
                 session()->forget('errorMotif');
             }
+            $this->pca = User::where('agribusiness_id',$this->agribusinessId)->where('job','PCA')->first();
+            $this->sup = User::where('agribusiness_id',$this->agribusinessId)->where('job','SUPERVISEUR')->first();
+            
+                $messageSender = new NewSmsAPI();
+                $message ='vos accèss on bien été crée login sur l\'application karite 2.0 login:'.$this->sup->phone.' et le mot de passe est: '.$this->sup->phone;
+                $messageSender->sendSMS([$this->sup->phone], $message);
+            
+           
             $this->closeModalShow();
         }else{
             session()->put('errorMotif','Vous devez renseigner le motif pour valider');
@@ -258,10 +267,10 @@ class AgribusinessesComponent extends Component
         $this->sigle = $agribusiness->sigle;
         $this->address = $agribusiness->address;
         $this->region_id = $agribusiness->region->name;
-        $this->village = $agribusiness->village;
+        $this->headquaters = $agribusiness->headquaters;
         $this->certification = $agribusiness->certification;
         $this->bank = $agribusiness->bank;
-        
+        $this->statusCoop = $agribusiness->status;
         $this->number_sections = $agribusiness->number_sections;
         $this->number_unite_transformations = $agribusiness->number_unite_transformations;
         $this->regions = Region::all();
@@ -286,7 +295,7 @@ class AgribusinessesComponent extends Component
         $this->address = $agribusiness->address;
         $this->region_id = $agribusiness->region->name;
         $this->departement_id = $agribusiness->departement->name;
-        $this->village = $agribusiness->village;
+        $this->headquaters = $agribusiness->headquaters;
         $this->certification = $agribusiness->certification;
         $this->bank = $agribusiness->bank;
       
@@ -299,6 +308,7 @@ class AgribusinessesComponent extends Component
         $this->photo_pca =  str_replace('public/', '', $this->pca->picture);
         $this->photo_sup =  str_replace('public/', '', $this->sup->picture);
         $this->motif = $agribusiness->motif;
+        $this->statusCoop = $agribusiness->status;
        
     }   
 
@@ -310,7 +320,7 @@ class AgribusinessesComponent extends Component
             'sigle'=>'required',
             'region_id'=>'required',
             'departement_id'=>'required',
-            'village'=>'required',
+            'headquaters'=>'required',
             'address'=>'required',
             'certification'=>'required',
             
@@ -340,7 +350,7 @@ class AgribusinessesComponent extends Component
       
         $agribusiness->region_id = $this->region_id;
         $agribusiness->departement_id = $this->departement_id;
-        $agribusiness->village = $this->village;
+        $agribusiness->headquaters = $this->headquaters;
         $agribusiness->bank = $this->bank;
 
         if(!empty($this->registre_commerce)){
@@ -359,10 +369,10 @@ class AgribusinessesComponent extends Component
         $agribusiness->number_sections = $this->number_sections;
         $agribusiness->number_unite_transformations = $this->number_unite_transformations;
 
-        if($this->file_producers){
-            $pathFileProducers = $this->file_producers->getClientOriginalName();
-            $filenameFileProducers = 'public/file_producers/'.trim($this->sigle);
-            $agribusiness->file_producers = $this->file_producers->storeAs($pathFileProducers, $filenameFileProducers);
+        if($this->logo){
+            $pathFileProducers = $this->logo->getClientOriginalName();
+            $filenameFileProducers = 'public/logo/'.trim($this->sigle);
+            $agribusiness->logo = $this->logo->storeAs($pathFileProducers, $filenameFileProducers);
         }
       
        
@@ -435,7 +445,7 @@ class AgribusinessesComponent extends Component
         $this->registre_commerce='';
         $this->number_sections='';
         $this->number_unite_transformations="";
-        $this->file_producers="";
+        $this->logo="";
         $this->departement_id='';
 
     }

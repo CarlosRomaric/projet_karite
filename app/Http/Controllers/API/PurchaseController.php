@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\BaseController;
-use App\Models\Offer;
 
-class OfferController extends BaseController
+class PurchaseController extends BaseController
 {
     public function __construct(){
         $this->middleware('auth:api');
@@ -22,7 +22,9 @@ class OfferController extends BaseController
             'certification'=>'required',
             'selling_price'=>'required',
             'type_packaging'=>'required',
-            'user_id'=>'required'
+            'farmer_id'=>'required',
+            'user_id'=>'required',
+            'agribusiness_id'=>'required'
         ];
 
         return $rules;
@@ -36,32 +38,39 @@ class OfferController extends BaseController
             'certification.required'=>'le choix de la certification est obligatoire',
             'type_packaging.required'=>'le choix du type de conditionnement est obligatoire',
             'selling_price.required'=>'le prix unitaire est obligatoire',
-            'user_id.required'=>'l\'identifiant de l\'utilisateur en cours est obligatoire'
+            'user_id.required'=>'l\'identifiant de l\'utilisateur en cours est obligatoire',
+            'farmer_id.required'=>'l\'identifiant du producteur  est obligatoire',
+            'agribusiness_id.required'=>'le choix de la cooperative est obligatoire'
+            
         ];
 
         return $messages;
     }
 
     public function index(){
-
-        $offers = Offer::orderBy('created_at','DESC')->get();
-        return $this->sendResponse($offers,'liste des offres de produit');
+        $agribusiness_id = Auth::user()->agribusiness_id;
+        $purchases = Purchase::orderBy('created_at','DESC')
+                            ->where('agribusiness_id', $agribusiness_id)
+                            ->get();
+        return $this->sendResponse($purchases,'liste des achats de produit');
     }
 
 
     public function store(Request $request){
-        $dataOffer = $request->all();
-        $dataOffer['statut']=0;
-        $data = Validator::make($dataOffer, $this->rules(), $this->messages());
+        //dd($request->all());
+        $data = Validator::make($request->all(), $this->rules(), $this->messages());
 
         if($data->fails()){
             return $this->sendError('une erreur s\'est produite', $data->errors());
         }else{
            
             $data = $request->all();
-            $offer = Offer::create($data);
-            $success['offers']=  $offer;
-            return $this->sendResponse($offer,'votre offre a bien été enregistré');
+            $purchase = Purchase::create($data);
+            $purchase->amount = $purchase->qte * $purchase->selling_price;
+            $purchase->save();
+            $success['purchases']=  $purchase;
+            return $this->sendResponse($purchase,'votre achat a bien été effectué');
         }
     }
+
 }

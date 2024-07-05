@@ -9,7 +9,8 @@ class Offer extends Model
 {
     use HasFactory;
 
-    public function farmer(){
-        return $this->belongsTo(Farmer::class);
+    public function agribusiness(){
+        return $this->belongsTo(Agribusiness::class);
     }
+    
 }

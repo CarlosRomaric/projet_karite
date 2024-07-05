@@ -139,14 +139,14 @@
                         
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
-                               village
+                               Siège
                             </label>
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border{{ $errors->has('address') ? ' border-red-500' : '' }} rounded
                                 py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                name="village" id="village"  wire:model="village" type="text" placeholder="village de la coopérative" value="{{ old('village') }}">
+                                name="headquaters" id="headquaters"  wire:model="headquaters" type="text" placeholder="headquaters de la coopérative" value="{{ old('headquaters') }}">
                         
-                            @error('village')
+                            @error('headquaters')
                                 <p class="text-red-500 text-sm">{{ $message }}</p>
                             @enderror
                             
@@ -183,7 +183,7 @@
                             <input
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border{{ $errors->has('number_sections') ? ' border-red-500' : '' }} rounded
                                 py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                name="number_sections" id="number_sections"  wire:model="number_sections" type="text" placeholder="Nombre de section de la coopérative" value="{{ old('village') }}">
+                                name="number_sections" id="number_sections"  wire:model="number_sections" type="text" placeholder="Nombre de section de la coopérative" value="{{ old('headquaters') }}">
                         
                             @error('number_sections')
                                 <p class="text-red-500 text-sm">{{ $message }}</p>
@@ -234,18 +234,18 @@
                         </div>
                     
                         <div class="w-full md:w-1/2 px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="departement_id" >
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="dfe" >
                                 DFE :<a href="{{ asset('storage/'.$doc_dfe) }}" target="_blank" class="text-amber-600">Voir</a>
                             </label>
                             <input
                             wire:model="dfe"
                             value="{{ old('dfe') }}"
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border{{ $errors->has('number_unite_transformations') ? ' border-red-500' : '' }} rounded
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border{{ $errors->has('dfe') ? ' border-red-500' : '' }} rounded
                                 py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                             type="file"
                             id="dfe" />
                         
-                            @error('bank')
+                            @error('dfe')
                                 <p class="text-red-500 text-sm">{{ $message }}</p>
                             @enderror
                         </div>
@@ -366,7 +366,7 @@
                     
                         <div class="w-full md:w-1/2 px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="acronym" >
-                                Village :<span class="text-amber-600">{{ $village }}</span>
+                                Siège :<span class="text-amber-600">{{ $headquaters }}</span>
                             </label>
                             
                         </div>
@@ -400,9 +400,6 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
                                 Nombre de sections : <span class="text-amber-600">{{ $number_sections }}</span>
                             </label>
-
-                            
-                            
                             
                         </div>
                     
@@ -554,7 +551,7 @@
                         @else
                         <div class="flex justify-end mt-5">
                             <button type="button" wire:click='rejetCoop("{{$agribusinessId}}")' class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 mx-1 rounded focus:outline-none focus:shadow-outline ">Rejeter</button>
-                            <button type="button" wire:click='valideCoop("{{$agribusinessId}}")' class="bg-amber-900 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded mr-2" >Valider</button>
+                             @if($statusCoop <> 1)<button type="button" wire:click='valideCoop("{{$agribusinessId}}")' class="bg-amber-900 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded mr-2" >Valider</button>@endif
                         </div>
                             
                         @endif

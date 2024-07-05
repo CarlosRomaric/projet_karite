@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('farmers', function (Blueprint $table) {
-            $table->string('identifier')->unique();
+        Schema::create('certifications', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->string('name')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('farmers', function (Blueprint $table) {
-            $table->dropColumn('identifier');
-        });
+        Schema::dropIfExists('certifications');
     }
 };

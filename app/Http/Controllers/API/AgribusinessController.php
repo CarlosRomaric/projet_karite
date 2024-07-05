@@ -16,7 +16,7 @@ class AgribusinessController extends BaseController
 
     public function index(){
 
-        $agribusinesses = Agribusiness::with('region','departement')->orderBy('created_at')->get();
+        $agribusinesses = Agribusiness::with('region','departement')->orderBy('created_at')->where('status',1)->get();
         //dd($regions);
 
         return $this->sendResponse($agribusinesses,'liste des Cooperatives');

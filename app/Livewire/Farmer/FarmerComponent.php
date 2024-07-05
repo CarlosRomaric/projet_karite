@@ -18,13 +18,13 @@ use Livewire\WithFileUploads;
 class FarmerComponent extends Component
 {
     use WithPagination, WithFileUploads;
-    public $farmerId;
-
-    public  $identifier, $fullname, $born_date, $born_place,  $phone, $phone_payment,  $sexe;
+    public  $farmerId;
+    public  $identifier, $fullname, $born_date, $born_place,  $phone, $phone_payment, $sexe;
     public  $region_id, $departement_id, $regions, $departements, $locality;
     public  $picture, $agribusiness_id, $activity;
     public  $farmer_id, $farmerInfo;
     public  $step = 1;
+
     #[Url] 
     public $search = '';
     public $selectedLimitPaginate;
@@ -38,10 +38,9 @@ class FarmerComponent extends Component
     
     public  function rules(){
         $rules =  [
-           
             'agribusiness_id' => 'required|exists:agribusinesses,id',
             'locality' => 'required',
-            'identifier' => 'required',
+            //'identifier' => 'required',
             'fullname' => 'required',
             'sexe' => 'required|in:AUCUN,H,F',
             'phone_payment' => 'required|min:2',
@@ -68,7 +67,7 @@ class FarmerComponent extends Component
             'phone.required'=>'le numéro de téléphone est obligatoire',
             'phone_payment.required'=>'le numéro de téléphone mobile money est obligatoire',
             'fullname.required' => 'Le champ nom et prénoms est obligatoire.',
-            'identifier.required' => 'Le champ identifiant est obligatoire.',
+            //'identifier.required' => 'Le champ identifiant est obligatoire.',
             'born_date.required' => 'Le champ date de naissance est obligatoire.',
             'born_place.required' => 'Le champ lieu de naissance est obligatoire.',
             'locality.required' => 'Le lieu de residence est obligatoire.',
@@ -120,7 +119,7 @@ class FarmerComponent extends Component
         $this->farmerId = $id;
         $farmer = Farmer::findOrFail($id);
 
-        $this->identifier = $farmer->identifier;
+        //$this->identifier = $farmer->identifier;
         $this->picture = $farmer->picture;
         $this->fullname = $farmer->fullname;
         $this->sexe = $farmer->sexe;
@@ -191,7 +190,7 @@ class FarmerComponent extends Component
 
     public function resetInput(){
 
-        $this->identifier = '';
+        //$this->identifier = '';
         $this->picture= '';
         $this->fullname = '';
         $this->sexe = '';
@@ -242,7 +241,7 @@ class FarmerComponent extends Component
     private function getFarmerData()
     {
         $data = [
-            'identifier' => $this->identifier,
+            //'identifier' => $this->identifier,
             'fullname' => $this->fullname,
             'sexe'=>$this->sexe,
             //'born_date' => $this->custom_date_format('Y-m-d', 'd/m/Y', $this->born_date),

@@ -18,41 +18,68 @@ class RegionDepartementTableSeeder extends Seeder
         $regionDepartement= [
             [
               "region"=> "Région du Folon",
-              "departement"=> ["Kaniasso", "Minignan"]
+              "code"=>"03",
+              "departement"=> ["Kaniasso", "Minignan"],
+              "latitude" => 10.104917,
+              "longitude" => -7.4514106
             ],
             [
               "region"=> "Région du Bagoué",
-              "departement"=> ["Boundiali", "Kouto", "Tengréla"]
+              "code"=>"02",
+              "departement"=> ["Boundiali", "Kouto", "Tengréla"],
+              "latitude" => 9.896245,
+              "longitude" => -6.448633
             ],
             [
               "region"=> "Région du Poro",
-              "departement"=> ["Dikodougou", "Korhogo", "M’Bengué", "Sinématiali"]
+              "code"=>"07",
+              "departement"=> ["Dikodougou", "Korhogo", "M’Bengué", "Sinématiali"],
+              "latitude" => 9.476081,
+              "longitude" => -5.7310859
             ],
             [
               "region"=> "Région du Tchologo",
-              "departement"=> ["Ferkessédougou", "Kong", "Ouangolodougou"]
+              "code"=>"08",
+              "departement"=> ["Ferkessédougou", "Kong", "Ouangolodougou"],
+              "latitude" => 9.5466024,
+              "longitude" => -4.7845119
             ],
             [
               "region"=> "Région du Worodougou",
-              "departement"=> ["Kani", "Séguéla"]
+              "code"=>"09",
+              "departement"=> ["Kani", "Séguéla"],
+              "latitude" => 8.3977175,
+              "longitude" => -6.7575757
             ],
             [
               "region"=> "Région du Hambol",
-              "departement"=> ["Dabakala", "Katiola", "Niakaramadougou"]
+              "code"=>"06",
+              "departement"=> ["Dabakala", "Katiola", "Niakaramadougou"],
+              "latitude" => 8.6201989,
+              "longitude" => -4.8136527
             ],
             [
               "region"=> "Région du Gbêkê",
-              "departement"=> ["Béoumi", "Botro", "Bouaké", "Sakassou"]
+              "code"=>"04",
+              "departement"=> ["Béoumi", "Botro", "Bouaké", "Sakassou"],
+              "latitude" => 7.7003988,
+              "longitude" => -5.0982175
             ],
             [
               "region"=> "Région de Bounkani",
-              "departement"=> ["Bouna", "Doropo", "Nassian", "Téhini"]
+              "code"=>"01",
+              "departement"=> ["Bouna", "Doropo", "Nassian", "Téhini"],
+              "latitude" => 9.0799571,
+              "longitude" => -3.3293652
             ],
             [
-              "region"=> "Région du Gontougou",
-              "departement"=> ["Bondoukou", "Koun-Fao", "Sandégué", "Tanda", "Transua"]
+              "region"=> "Région du Gontougo",
+              "code"=>"05",
+              "departement"=> ["Bondoukou", "Koun-Fao", "Sandégué", "Tanda", "Transua"],
+              "latitude" => 7.92343941,
+              "longitude" => -3.369677
             ]
-          ];
+        ];
          //dd($regionDepartement);
         //$regions = json_decode($regionDepartement, true);
         $regions = $regionDepartement;
@@ -60,7 +87,10 @@ class RegionDepartementTableSeeder extends Seeder
         foreach ($regions as $regionData) {
             
             $region = new Region([ 
-                'name' => $regionData['region']
+                'name' => $regionData['region'],
+                'code' => $regionData['code'],
+                'latitude' => $regionData['latitude'],
+                'longitude' => $regionData['longitude'],
             ]);
             $region->save();
             

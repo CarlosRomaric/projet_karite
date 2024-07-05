@@ -111,6 +111,11 @@ trait UserRoleTrait
         return self::hasRole('MOBILE');
     }
 
+    public function isSupervisorAgribusiness()
+    {
+        return self::hasRole('SUPERVISEUR COOPERATIVE');
+    }
+
     /**
      * @param Builder $builder
      */

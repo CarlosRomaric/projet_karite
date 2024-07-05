@@ -23,7 +23,11 @@ class AuthController extends BaseController
     }
 
     public function index(){
-        $user = Auth::user();
+        $user = User::where('id',Auth::user()->id)
+                      ->with(['agribusiness' => function($query){
+                        $query->select('id','denomination','sigle','matricule');
+                      }])
+                      ->first();
         //dd($user);
         $success['user'] = collect($user)->except(['created_at','updated_at']);
         return $this->sendResponse($success, 'Connexion effectuer avec success.');
@@ -35,11 +39,16 @@ class AuthController extends BaseController
         if(Auth::attempt($credentials)){ 
            
             $user = $request->user(); 
-            if($user->isMobile()==true){
+            if($user->isMobile()==true || $user->isSupervisorAgribusiness()==true){
                 $tokenResult =  $user->createToken('Karite Personal Access Client');
                 $success['access_token'] = $tokenResult->accessToken; 
                 $success['token_type']='Bearer';
-                $success['roles']='MOBILE';
+                if($user->isMobile()){
+                    $success['roles']='MOBILE';
+                }else{
+                    $success['roles']='SUPERVISEUR COOPERATIVE';
+                }
+               
                 $success['expires_at']=Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateString();

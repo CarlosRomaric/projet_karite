@@ -17,8 +17,8 @@ class CreateFarmersTable extends Migration
             $table->uuid('id')->primary();
             $table->string('fullname');
             $table->string('picture')->nullable();
-            $table->string('phone');
-            $table->string('phone_payment');
+            $table->string('phone')->unique();
+            $table->string('phone_payment')->unique();
             $table->dateTime('born_date')->nullable();
             $table->string('born_place', 100)->nullable();
             $table->uuid('region_id');

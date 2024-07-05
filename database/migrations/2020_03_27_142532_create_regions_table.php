@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
             $table->string('name')->nullable();
+            $table->string('code')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
         });
     }

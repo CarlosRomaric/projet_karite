@@ -14,6 +14,7 @@ class RolesTableSeeder extends Seeder
     {
         $roles = [
             'ADMINISTRATEUR COOPERATIVE',
+            'SUPERVISEUR COOPERATIVE',
             'ADMINISTRATEUR PLATEFORME',
             'MOBILE'
         ];

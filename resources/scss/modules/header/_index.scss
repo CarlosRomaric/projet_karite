@@ -33,8 +33,12 @@
     }
 }
 
-.card-green{
+.card-amber{
     @apply text-amber-800 text-base py-5 col-span-1 border-r border-amber-800 md:text-sm  md:pl-[12px] md:pr-[11px] lg:px-10 xl:px-10;
+}
+
+.card-amber-final{
+  @apply text-amber-800 text-base py-5 col-span-1 border-amber-800 md:text-sm  md:pl-[12px] md:pr-[11px] lg:px-10 xl:px-10;
 }
 
 .stat{

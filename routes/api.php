@@ -10,6 +10,7 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Auth\LoginController;
 use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\AgribusinessController;
+use App\Http\Controllers\API\PurchaseController;
 use App\Http\Controllers\API\SynchronizationController;
 
 /*
@@ -106,6 +107,14 @@ Route::namespace('API')->name('api.')->group(function () {
     Route::prefix('offers')->name('offers.')->group(function () {
         Route::get('/', [OfferController::class, 'index'])->name('index');
         Route::post('/store', [OfferController::class, 'store'])->name('store');
+    });
+
+     /**
+     * Achat routes
+     */
+    Route::prefix('purchases')->name('purchases.')->group(function () {
+        Route::get('/', [PurchaseController::class, 'index'])->name('index');
+        Route::post('/store', [PurchaseController::class, 'store'])->name('store');
     });
 
     /**

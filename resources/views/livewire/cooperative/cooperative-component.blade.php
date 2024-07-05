@@ -38,7 +38,7 @@
 
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Matricule de la coopérative
+                            Matricule de la coopérative <b class="text-red-500">*</b>
                         </label>
                         <input  name="matricule" wire:model="matricule" value="{{ old('matricule') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="matricule" type="text" placeholder="Entrez votre Matricule">
                         @if($errors->has('matricule'))
@@ -50,7 +50,7 @@
 
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Denomination
+                            Denomination <b class="text-red-500">*</b>
                         </label>
                         <input name="denomination"  wire:model="denomination" value="{{ old('denomination') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="denomination" type="text" placeholder="Entrez votre Denomination">
                         @if($errors->has('denomination'))
@@ -62,7 +62,7 @@
 
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Sigle
+                            Sigle <b class="text-red-500">*</b>
                         </label>
                         <input  name="sigle" wire:model="sigle" value="{{ old('sigle') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="sigle" type="text" placeholder="Entrez votre Sigle ">
                         @if($errors->has('sigle'))
@@ -74,7 +74,7 @@
 
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Region
+                            Region <b class="text-red-500">*</b>
                         </label>
                         <select name="region_id" wire:model.change="region_id"  class="form-control focus:border-amber-300 focus:outline-none">
                         <option value="">Choississez la region</option>
@@ -91,7 +91,7 @@
 
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Departement du siège
+                            Departement <b class="text-red-500">*</b>
                         </label>
                         <select name="departement_id" wire:model="departement_id"  class="form-control focus:border-amber-500">
                             <option value="">Choississez le departement</option>
@@ -109,13 +109,13 @@
                     
 
                     <div class="mb-4 ">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Village du siège
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="headquaters">
+                            Siège <b class="text-red-500">*</b>
                         </label>
-                        <input  name="village" wire:model="village" value="{{ old('village') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ville" type="text" placeholder="Entrez le village du siège">
-                        @if($errors->has('village'))
+                        <input  name="headquaters" wire:model="headquaters" value="{{ old('headquaters') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="headquaters" type="text" placeholder="Entrez le du siège de la coopérative">
+                        @if($errors->has('headquaters'))
                                 <div class="bg-red-200 text-red-700 rounded py-5 px-4 mt-2">
-                                    <strong>{{ $errors->first('village') }}</strong>
+                                    <strong>{{ $errors->first('headquaters') }}</strong>
                                 </div>
                         @endif
                     </div>
@@ -140,7 +140,7 @@
 
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                        Certification
+                        Certification <b class="text-red-500">*</b>
                         </label>
                         <select name="certification" wire:model="certification"  id="certification" class="form-control text-gray-700 text-sm font-bold mb-2">
                             <option value="">Choississez la certification</option>
@@ -155,7 +155,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-1" for="matricule">
-                        Banques
+                        Banques <b class="text-red-500">*</b>
                         </label>
                         <select  id="bank" name="bank" wire:model="bank"   class="form-control">
                             <option value="">Choississez votre banque</option>
@@ -210,7 +210,7 @@
                     </div>
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="number_sections">
-                        Nombres de sections
+                        Nombres de sections <b class="text-red-500">*</b>
                         </label>
                         <input  wire:model="number_sections"  onkeypress="return isNumber(event)"  value="{{ old('number_sections') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="matricule" type="text" placeholder="Entrez le nombre de vos sections">
                         @if($errors->has('number_sections'))
@@ -221,7 +221,7 @@
                     </div>
                     <div class="mb-4 ">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="matricule">
-                            Nombre d'unités de transformations
+                            Nombre d'unités de transformations <b class="text-red-500">*</b>
                         </label>
                         <input  wire:model="number_unite_transformations"  onkeypress="return isNumber(event)" value="{{ old('number_unite_transformations') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number_unite_transformations" type="text" placeholder="Entrez le nombre d'unités de transformations que vous avez">
                         @if($errors->has('number_unite_transformations'))
@@ -231,19 +231,19 @@
                         @endif
                     </div>
                     <div class="mb-4">
-                        <label class="block text-gray-700 text-sm mb-2 font-bold" for="file_producers">
-                        Fichier des producteurs
+                        <label class="block text-gray-700 text-sm mb-2 font-bold" for="logo">
+                            Logo de la coopérative
                         </label>
 
                         <input
-                            wire:model="file_producers"
-                            value="{{ old('file_producers') }}"
+                            wire:model="logo"
+                            value="{{ old('logo') }}"
                             class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-secondary-500 bg-transparent bg-clip-padding px-3 py-[0.16rem] text-base font-normal text-surface transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.32rem] file:text-surface focus:border-amber-950 focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:text-white  file:dark:text-white"
                             type="file"
-                            id="file_producers" />
-                            @if($errors->has('file_producers'))
+                            id="logo" />
+                            @if($errors->has('logo'))
                                     <div class="bg-red-200 text-red-700 rounded py-5 px-4 mt-2">
-                                            <strong>{{ $errors->first('file_producers') }}</strong>
+                                            <strong>{{ $errors->first('logo') }}</strong>
                                     </div>
                             @endif
                     </div>
@@ -265,7 +265,7 @@
                     
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname_pca">
-                            Nom du président
+                            Nom du président <b class="text-red-500">*</b>
                         </label>
                         
                         <input  wire:model="lastname_pca" value="{{ old('lastname_pca') }}" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="president_nom" type="text" placeholder="Nom"> 
@@ -277,7 +277,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_pca">
-                        Contact
+                        Contact <b class="text-red-500">*</b>
                         </label>
                         
                         <input  wire:model="phone_pca" onkeypress="return isNumberKey(event)" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="president_nom" type="text" placeholder="contact" maxlength="14"> 
@@ -294,7 +294,7 @@
                 <div class="w-1/2">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname_pca">
-                        Prenoms
+                        Prenoms <b class="text-red-500">*</b>
                         </label>
                         
                         <input  wire:model="firstname_pca" name="firstname_pca" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="president_nom" type="text" placeholder="Nom"> 
@@ -353,7 +353,7 @@
                     
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname_sup">
-                            Nom
+                            Nom <b class="text-red-500">*</b>
                         </label>
                         
                         <input  name="lastname_sup" wire:model="lastname_sup" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="president_nom" type="text" placeholder="Nom"> 
@@ -366,7 +366,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="phone_sup">
-                        Contact
+                        Contact <b class="text-red-500">*</b>
                         </label>
                         
                         <input  name="phone_sup" onkeypress="return isNumberKey(event)" wire:model="phone_sup" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="contact_sup" type="text" placeholder="contact" maxlength="14"> 
@@ -383,7 +383,7 @@
                 <div class="w-1/2">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname_sup">
-                        Prenoms
+                        Prenoms <b class="text-red-500">*</b>
                         </label>
                         
                         <input name="firstname_sup"  wire:model="firstname_sup" class="shadow focus:border-amber-300 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="president_prenom" type="text" placeholder="Prénoms"> 
@@ -442,7 +442,7 @@
             @endif
             
             @if($step < 2)
-                <button type="button" wire:click="nextStep" class="bg-amber-900 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Suivant</buttion>
+                <button type="button" wire:click="goToNextStep" class="bg-amber-900 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Suivant</buttion>
             
             @else
                 <button type="submit" class="bg-amber-900 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Soummettre</button>

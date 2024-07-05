@@ -68,16 +68,16 @@
                     <ul class="list-style-none flex flex-col ps-0 lg:mt-1 lg:flex-row" data-twe-navbar-nav-ref>
                         <!-- Link -->
                         <li class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0" data-twe-nav-item-ref>
-                            <a class="p-0 text-black/60 transition duration-200 hover:text-amber-300 hover:ease-in-out focus:text-black/80 active:text-amber-200 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2" href="#" data-twe-nav-link-ref>Acceuil</a>
+                            <a class="p-0 text-black/60 transition duration-200 hover:text-amber-300 hover:ease-in-out focus:text-black/80 active:text-amber-200 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2" href="/" data-twe-nav-link-ref>Acceuil</a>
                         </li>
                         
                         <!-- Disabled link -->
                         <li class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0" data-twe-nav-link-ref>
-                            <a class="p-0 text-black transition duration-200 hover:text-amber-300 hover:ease-in-out focus:text-black/80 active:text-amber-200 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2" href="#">À Propos</a>
+                            <a class="p-0 text-black transition duration-200 hover:text-amber-300 hover:ease-in-out focus:text-black/80 active:text-amber-200 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2" href="{{ route('pages.acceuil') }}#about">À Propos</a>
                         </li>
 
                         <li class="mb-4 ps-2 lg:mb-0 lg:pe-1 lg:ps-0" data-twe-nav-link-ref>
-                            <a class="p-0 text-black transition duration-200 hover:text-amber-300 hover:ease-in-out focus:text-black/80 active:text-amber-200 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2" href="#">Avantages</a>
+                            <a class="p-0 text-black transition duration-200 hover:text-amber-300 hover:ease-in-out focus:text-black/80 active:text-amber-200 motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80 lg:px-2" href="{{ route('pages.acceuil') }}#advantage">Avantages</a>
                         </li>
                     </ul>
                 </div>

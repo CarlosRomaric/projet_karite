@@ -21,13 +21,13 @@ class PermissionsTableSeeder extends Seeder
             'ADMIN COOPERATIVE LIST', 'ADMIN COOPERATIVE ADD', 'ADMIN COOPERATIVE UPDATE', 'ADMIN COOPERATIVE DELETE',
             'ADMIN TABLEAU DE BORD', 'ADMIN PRODUCTEUR LIST', 'ADMIN PRODUCTEUR ADD', 'ADMIN PRODUCTEUR SHOW',
             'ADMIN PRODUCTEUR UPDATE', 'ADMIN PRODUCTEUR DELETE', 'ADMIN IMPORT EXCEL ADD', 'ADMIN EXPORT EXCEL',
-            'MOBILE LISTE DES PRODUCTEURS', 'MOBILE SYNCHRONISATIONS'
+            'MOBILE LISTE DES PRODUCTEURS', 'MOBILE SYNCHRONISATIONS', 'ADD OFFRES', 'LISTE OFFRES'
         ];
 
         foreach ($permissions as $permission) {
             Permission::firstOrCreate([
                 'name' => $permission
-            ], [
+            ],[
                 'name' => $permission
             ]);
         }

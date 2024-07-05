@@ -1,6 +1,6 @@
 <div>
-@include('livewire.roles.rolemodal')
-<label for="" class="text-4xl font-bold">Liste des Roles</label>
+    @include('livewire.roles.rolemodal')
+    <label for="" class="text-4xl font-bold">Liste des Roles</label>
             <div class="flex flex-col sm:flex-row mt-2 w-full justify-between">
                 <!-- Formulaire de recherche et bouton Vider -->
                 <div class="mb-2 sm:mb-0 sm:flex-grow w-full sm:w-60 sm:order-1">
